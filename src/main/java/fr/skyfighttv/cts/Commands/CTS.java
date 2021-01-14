@@ -1,5 +1,6 @@
 package fr.skyfighttv.cts.Commands;
 
+import fr.skyfighttv.cts.Commands.SubCommands.CTSSetSpawn;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.PlayersManager;
@@ -11,8 +12,12 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CTS implements CommandExecutor {
+    public static List<Player> inGamePlayers = new ArrayList<>();
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
@@ -33,7 +38,16 @@ public class CTS implements CommandExecutor {
 
             }
             else if (args[0].equalsIgnoreCase("setspawn")) {
+                if (!player.hasPermission("CTS.reload")) {
+                    player.sendMessage(langConfig.getString("NoPermission"));
+                    return false;
+                }
+                if (args.length == 1) {
+                    player.sendMessage(langConfig.getString("NotFullCommandSetSpawn"));
+                    return false;
+                }
 
+                CTSSetSpawn.init(player, args[1]);
             }
             else if (args[0].equalsIgnoreCase("reload")) {
                 if (!player.hasPermission("CTS.reload")) {
