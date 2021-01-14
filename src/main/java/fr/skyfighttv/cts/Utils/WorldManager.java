@@ -16,6 +16,10 @@ public class WorldManager {
     public WorldManager() {
         worlds = new ArrayList<>();
 
+        reload();
+    }
+
+    public static void reload() {
         YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
         int createdNumber = 0;
@@ -23,7 +27,7 @@ public class WorldManager {
         for (int i = 1; i <= config.getInt("Worlds.Number"); i++) {
             String worldName = config.getString("Worlds.Title") + i;
             File world = new File(worldName);
-            
+
             if (!world.exists()) {
                 WorldCreator worldCreator = new WorldCreator(worldName);
 
