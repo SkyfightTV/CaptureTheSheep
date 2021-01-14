@@ -4,9 +4,9 @@ import fr.mrcubee.annotation.spigot.config.ConfigAnnotation;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
 import fr.skyfighttv.cts.Utils.FileManager;
+import fr.skyfighttv.cts.Utils.GameManager;
 import fr.skyfighttv.cts.Utils.PlayersManager;
 import fr.skyfighttv.cts.Utils.WorldManager;
-import main.java.fr.skyfighttv.cts.Settings;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -72,6 +72,9 @@ public class Main extends JavaPlugin {
 
         getLogger().info(ANSI_CYAN + "Loading worlds in progress ..." + ANSI_RESET);
         new WorldManager();
+
+        getLogger().info(ANSI_CYAN + "Loading games in progress ..." + ANSI_RESET);
+        new GameManager();
 
         getLogger().info(ANSI_CYAN + "Finalization of the loading of the plugin in progress ..." + ANSI_RESET);
         getCommand("CaptureTheSheep").setExecutor(new CTS());
