@@ -1,6 +1,7 @@
 package fr.skyfighttv.cts.Utils;
 
 import fr.skyfighttv.cts.Main;
+import fr.skyfighttv.cts.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -24,15 +25,15 @@ public class WorldManager {
 
         int createdNumber = 0;
         int number = 0;
-        for (int i = 1; i <= config.getInt("Worlds.Number"); i++) {
-            String worldName = config.getString("Worlds.Title") + i;
+        for (int i = 1; i <= Settings.getNumberOfWorld(); i++) {
+            String worldName = Settings.getWorldTitle() + i;
             File world = new File(worldName);
 
             if (!world.exists()) {
                 WorldCreator worldCreator = new WorldCreator(worldName);
 
                 try {
-                    worldCreator.copy(Bukkit.getWorld(config.getString("Worlds.Copy")));
+                    worldCreator.copy(Bukkit.getWorld(Settings.getCopiedWorldName()));
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }

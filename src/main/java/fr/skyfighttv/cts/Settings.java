@@ -1,11 +1,11 @@
-package main.java.fr.skyfighttv.cts;
+package fr.skyfighttv.cts;
 
 import fr.mrcubee.annotation.spigot.config.Config;
 
 public class Settings {
 
     @Config(path = "Worlds.Number")
-    private static int numberOfWorld = 2;
+    private static final int numberOfWorld = 2;
 
     @Config(path = "Worlds.Title")
     private static String worldTitle;
