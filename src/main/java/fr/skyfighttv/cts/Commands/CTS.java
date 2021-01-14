@@ -19,6 +19,7 @@ import java.util.List;
 
 public class CTS implements CommandExecutor {
     public static List<Player> inGamePlayers = new ArrayList<>();
+    public static List<Player> invinciblePlayers = new ArrayList<>();
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

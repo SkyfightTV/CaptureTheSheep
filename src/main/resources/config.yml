@@ -35,7 +35,7 @@ Worlds:
 
 #After update, reload the plugin or restart the server
 
-FFARush:
+CTS:
   Kits: true
   Play: true
 
@@ -50,6 +50,7 @@ FFARush:
 
 #Setting up the game
 Game:
+  MaxPlayers: 16
   #Time after spawn when the player is invincible in second
   Invincibility: 5
   #Command execute when a player was kill by an other player
