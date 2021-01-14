@@ -1,5 +1,7 @@
 package fr.skyfighttv.cts.Commands;
 
+import fr.skyfighttv.cts.Commands.SubCommands.CTSKits;
+import fr.skyfighttv.cts.Commands.SubCommands.CTSSetKit;
 import fr.skyfighttv.cts.Commands.SubCommands.CTSSetSpawn;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
@@ -24,6 +26,7 @@ public class CTS implements CommandExecutor {
             Player player = (Player) sender;
 
             YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
+            YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
             if (args[0].equalsIgnoreCase("play")) {
 
@@ -32,13 +35,27 @@ public class CTS implements CommandExecutor {
 
             }
             else if (args[0].equalsIgnoreCase("kits")) {
+                if (!config.getBoolean("CTS.Kits")) {
+                    player.sendMessage(langConfig.getString("CommandDisabled"));
+                    return false;
+                }
 
+                CTSKits.init(player);
             }
             else if (args[0].equalsIgnoreCase("setkit")) {
+                if (!player.hasPermission("CTS.setkit")) {
+                    player.sendMessage(langConfig.getString("NoPermission"));
+                    return false;
+                }
+                if (args.length == 1) {
+                    player.sendMessage(langConfig.getString("NotFullCommandSetKit"));
+                    return false;
+                }
 
+                CTSSetKit.init(player, args[1]);
             }
             else if (args[0].equalsIgnoreCase("setspawn")) {
-                if (!player.hasPermission("CTS.reload")) {
+                if (!player.hasPermission("CTS.setspawn")) {
                     player.sendMessage(langConfig.getString("NoPermission"));
                     return false;
                 }
