@@ -3,6 +3,7 @@ package fr.skyfighttv.cts.Commands;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.PlayersManager;
+import fr.skyfighttv.cts.Utils.WorldManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -46,6 +47,7 @@ public class CTS implements CommandExecutor {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                WorldManager.reload();
 
                 player.sendMessage(langConfig.getString("SuccessReload"));
             }
