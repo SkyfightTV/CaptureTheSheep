@@ -1,0 +1,7 @@
+name: FFARush
+main: fr.skyfighttv.ffarush.Main
+version: 0.2
+commands:
+  ffarush:
+    aliases:
+      - ffa
