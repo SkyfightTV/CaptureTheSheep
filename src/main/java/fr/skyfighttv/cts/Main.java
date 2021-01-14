@@ -1,19 +1,21 @@
 package fr.skyfighttv.cts;
 
+import fr.mrcubee.annotation.spigot.config.ConfigAnnotation;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.PlayersManager;
 import fr.skyfighttv.cts.Utils.WorldManager;
+import main.java.fr.skyfighttv.cts.Settings;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main extends JavaPlugin {
+
     public static String ANSI_RESET = "";
     public static String ANSI_BLACK = "";
     public static String ANSI_RED = "";
@@ -25,9 +27,13 @@ public class Main extends JavaPlugin {
     public static String ANSI_WHITE = "";
     private static Main Instance;
 
-    private final List<Listener> listeners = new ArrayList<>(Arrays.asList(
+    private final List<Listener> listeners = new ArrayList<Listener>();
 
-    ));
+    @Override
+    public void onLoad() {
+        saveDefaultConfig();
+        ConfigAnnotation.loadClass(getConfig(), Settings.class);
+    }
 
     @Override
     public void onEnable() {
@@ -52,26 +58,26 @@ public class Main extends JavaPlugin {
         System.out.println(ANSI_BLUE + "| |___  " + ANSI_WHITE + "  | |   " + ANSI_RED + " ___) |" + ANSI_RESET);
         System.out.println(ANSI_BLUE + " \\____|" + ANSI_WHITE + "  |_|   " + ANSI_RED + "|____/" + ANSI_RESET);
         System.out.println(" ");
-        System.out.println(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
+        getLogger().info(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
         new PlayersManager();
 
-        System.out.println(ANSI_CYAN + "Loading configuration files in progress ..." + ANSI_RESET);
+        getLogger().info(ANSI_CYAN + "Loading configuration files in progress ..." + ANSI_RESET);
         try {
             new FileManager();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println(ANSI_CYAN + "Loading worlds in progress ..." + ANSI_RESET);
+        getLogger().info(ANSI_CYAN + "Loading worlds in progress ..." + ANSI_RESET);
         new WorldManager();
 
-        System.out.println(ANSI_CYAN + "Finalization of the loading of the plugin in progress ..." + ANSI_RESET);
+        getLogger().info(ANSI_CYAN + "Finalization of the loading of the plugin in progress ..." + ANSI_RESET);
         getCommand("CaptureTheSheep").setExecutor(new CTS());
         getCommand("CaptureTheSheep").setTabCompleter(new CTSTab());
 
         for (Listener listener : listeners)
             getServer().getPluginManager().registerEvents(listener, this);
-        System.out.println(ANSI_CYAN + "Loading of the finalized plugin." + ANSI_RESET);
+        getLogger().info(ANSI_CYAN + "Loading of the finalized plugin." + ANSI_RESET);
         System.out.println(" ");
     }
 
