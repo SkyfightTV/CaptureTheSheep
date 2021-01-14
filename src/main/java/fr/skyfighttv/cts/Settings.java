@@ -5,15 +5,22 @@ import fr.mrcubee.annotation.spigot.config.Config;
 public class Settings {
 
     @Config(path = "Worlds.Number")
-    private static final int numberOfWorld = 2;
+    private static final Integer numberOfWorld = 2;
 
     @Config(path = "Worlds.Title")
-    private static String worldTitle;
+    private static final String worldTitle = "CTS-";
 
     @Config(path = "Worlds.Copy")
-    private static String copiedWorldName;
+    private static final String copiedWorldName = "world";
 
-    public static int getNumberOfWorld() {
+    @Config(path = "Game.MaxPlayers")
+    private static final Integer MaxPlayers = 16;
+
+    public static Integer getMaxPlayers() {
+        return MaxPlayers;
+    }
+
+    public static Integer getNumberOfWorld() {
         return numberOfWorld;
     }
 
