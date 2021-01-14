@@ -3,7 +3,6 @@ package fr.skyfighttv.cts;
 import fr.mrcubee.annotation.spigot.config.ConfigAnnotation;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
-import fr.skyfighttv.cts.Listeners.PlayerListeners;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.PlayersManager;
 import fr.skyfighttv.cts.Utils.WorldManager;
@@ -13,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main extends JavaPlugin {
@@ -29,7 +29,7 @@ public class Main extends JavaPlugin {
     private static Main Instance;
 
     private final List<Listener> listeners = new ArrayList<>(Arrays.asList(
-        new PlayerListeners()
+
     ));
 
     @Override
@@ -53,7 +53,6 @@ public class Main extends JavaPlugin {
             ANSI_CYAN = "\u001B[36m";
             ANSI_WHITE = "\u001B[37m";
         }
-
 
         System.out.println(ANSI_BLUE + "  ____  " + ANSI_WHITE + " _____  " + ANSI_RED + " ____" + ANSI_RESET);
         System.out.println(ANSI_BLUE + " / ___| " + ANSI_WHITE + "|_   _| " + ANSI_RED + "/ ___|" + ANSI_RESET);
