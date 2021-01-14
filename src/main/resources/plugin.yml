@@ -1,7 +1,7 @@
-name: FFARush
-main: fr.skyfighttv.ffarush.Main
-version: 0.2
+name: CaptureTheSheep
+main: fr.skyfighttv.cts.Main
+version: 0.1
 commands:
-  ffarush:
+  CaptureTheSheep:
     aliases:
-      - ffa
+      - cts
