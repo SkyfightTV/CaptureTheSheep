@@ -21,6 +21,8 @@ NotFullCommandSetKit: "/ffarush setkit <Nom du Kit>"
 NoPermission: "Tu n'as pas la permission d'éxecuter cette commande !"
 #Message sent when the player is already on game
 AlreadyOnGame: "Tu es déjà en jeux !"
+JoinGame:
+AllGamesFull:
 #Message sent when no kits have been configured
 NoneKits: "Il n'y a aucun kits !"
 #Message sent when the command send by the player is disable
