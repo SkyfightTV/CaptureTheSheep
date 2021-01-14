@@ -21,7 +21,7 @@ public class WorldManager {
         int createdNumber = 0;
         int number = 0;
         for (int i = 1; i <= config.getInt("Worlds.Number"); i++) {
-            String worldName = config.getString("World.Title") + i;
+            String worldName = config.getString("Worlds.Title") + i;
             File world = new File(worldName);
             
             if (!world.exists()) {

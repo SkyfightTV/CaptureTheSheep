@@ -2,6 +2,7 @@ package fr.skyfighttv.cts;
 
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
+import fr.skyfighttv.cts.Listeners.PlayerListeners;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.PlayersManager;
 import fr.skyfighttv.cts.Utils.WorldManager;
@@ -26,7 +27,7 @@ public class Main extends JavaPlugin {
     private static Main Instance;
 
     private final List<Listener> listeners = new ArrayList<>(Arrays.asList(
-
+        new PlayerListeners()
     ));
 
     @Override
