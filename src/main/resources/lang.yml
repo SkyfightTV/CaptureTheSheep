@@ -26,6 +26,8 @@ NoneKits: "Il n'y a aucun kits !"
 #Message sent when the command send by the player is disable
 CommandDisabled: "Cette commande est désactivé !"
 
+FailedSetSpawn: "Merci de rentrer un nom valide !"
+
 #Messages sent when the command is a success
 SuccessSetSpawn: "Tu viens de d'ajouter un spawn !"
 SuccessSetKit: "Tu viens d'ajouter un kit !"
