@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CTSTab implements TabCompleter {
     @Override
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         return null;
     }
 }

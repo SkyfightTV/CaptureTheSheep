@@ -3,6 +3,7 @@ package fr.skyfighttv.cts;
 import fr.mrcubee.annotation.spigot.config.ConfigAnnotation;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
+import fr.skyfighttv.cts.Listeners.PlayerListeners;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.PlayersManager;
 import fr.skyfighttv.cts.Utils.WorldManager;
@@ -27,7 +28,9 @@ public class Main extends JavaPlugin {
     public static String ANSI_WHITE = "";
     private static Main Instance;
 
-    private final List<Listener> listeners = new ArrayList<Listener>();
+    private final List<Listener> listeners = new ArrayList<>(Arrays.asList(
+        new PlayerListeners()
+    ));
 
     @Override
     public void onLoad() {
