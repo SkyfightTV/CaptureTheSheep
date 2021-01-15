@@ -1,8 +1,6 @@
 package fr.skyfighttv.cts.Commands;
 
-import fr.skyfighttv.cts.Commands.SubCommands.CTSKits;
-import fr.skyfighttv.cts.Commands.SubCommands.CTSSetKit;
-import fr.skyfighttv.cts.Commands.SubCommands.CTSSetSpawn;
+import fr.skyfighttv.cts.Commands.SubCommands.*;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.PlayersManager;
@@ -21,6 +19,10 @@ public class CTS implements CommandExecutor {
     public static List<Player> inGamePlayers = new ArrayList<>();
     public static List<Player> invinciblePlayers = new ArrayList<>();
 
+    public static void setLobbyInventory(Player player) {
+
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
@@ -30,10 +32,10 @@ public class CTS implements CommandExecutor {
             YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
             if (args[0].equalsIgnoreCase("play")) {
-
+                CTSPlay.init(player);
             }
             else if (args[0].equalsIgnoreCase("leave")) {
-
+                CTSLeave.init(player);
             }
             else if (args[0].equalsIgnoreCase("kits")) {
                 if (!config.getBoolean("CTS.Kits")) {
@@ -66,8 +68,18 @@ public class CTS implements CommandExecutor {
                 }
 
                 CTSSetSpawn.init(player, args[1]);
-            }
-            else if (args[0].equalsIgnoreCase("reload")) {
+            } else if (args[0].equalsIgnoreCase("setsheep")) {
+                if (!player.hasPermission("CTS.setsheep")) {
+                    player.sendMessage(langConfig.getString("NoPermission"));
+                    return false;
+                }
+                if (args.length == 1) {
+                    player.sendMessage(langConfig.getString("NotFullCommandSetSheep"));
+                    return false;
+                }
+
+                CTSSetSheep.init(player, args[1]);
+            } else if (args[0].equalsIgnoreCase("reload")) {
                 if (!player.hasPermission("CTS.reload")) {
                     player.sendMessage(langConfig.getString("NoPermission"));
                     return false;
@@ -82,8 +94,7 @@ public class CTS implements CommandExecutor {
                 WorldManager.reload();
 
                 player.sendMessage(langConfig.getString("SuccessReload"));
-            }
-            else if (args[0].equalsIgnoreCase("stats")) {
+            } else if (args[0].equalsIgnoreCase("stats")) {
             }
         }
         return false;
