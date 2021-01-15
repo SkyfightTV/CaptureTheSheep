@@ -9,13 +9,14 @@
 #\________|\__|  \__|\__|  \__| \______/  \______/ \__|  \__| \______/ \________|#
 ##################################################################################
 #In this file, you can modify all the texts sent by the plugin
-#To reload this file /ffarush reload
+#To reload this file /cts reload
 
 #Messages sent when the command is not complete
-NotFullCommandPlayer: "/ffarush <start/leave/kits>"
-NotFullCommandStaff: "/ffarush <start/setspawn/leave/setkit/kits>"
-NotFullCommandSetSpawn: "/ffarush setspawn <numéro du spawn>"
-NotFullCommandSetKit: "/ffarush setkit <Nom du Kit>"
+NotFullCommandPlayer: "/cts <play/leave/kits/stats>"
+NotFullCommandStaff: "/cts <play/setspawn/setsheep/leave/setkit/kits/stats>"
+NotFullCommandSetSpawn: "/cts setspawn <numéro du spawn>"
+NotFullCommandSetKit: "/cts setkit <Nom du Kit>"
+NotFullCommandSetSheep: "/cts setsheep <Blue/Red>"
 
 #Message sent when the player has't the permission
 NoPermission: "Tu n'as pas la permission d'éxecuter cette commande !"
