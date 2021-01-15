@@ -30,9 +30,11 @@ NoneKits: "Il n'y a aucun kits !"
 CommandDisabled: "Cette commande est désactivé !"
 
 FailedSetSpawn: "Merci de rentrer un nom valide !"
+FailedSetSheep: "Merci de rentrer un nom valide !"
 
 #Messages sent when the command is a success
-SuccessSetSpawn: "Tu viens de d'ajouter un spawn !"
+SuccessSetSpawn: "Tu viens d'ajouter un spawn !"
+SuccessSetSheep: "Tu viens d'ajouter un sheep !"
 SuccessSetKit: "Tu viens d'ajouter un kit !"
 SuccessSetLobby: "Tu viens de set le nouveau lobby !"
 SuccessSelectKit: "Tu viens avec succès de sélectionner ton kit !"
