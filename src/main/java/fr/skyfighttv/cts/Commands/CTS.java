@@ -95,6 +95,7 @@ public class CTS implements CommandExecutor {
 
                 player.sendMessage(langConfig.getString("SuccessReload"));
             } else if (args[0].equalsIgnoreCase("stats")) {
+                CTSStats.init(player);
             }
         }
         return false;
