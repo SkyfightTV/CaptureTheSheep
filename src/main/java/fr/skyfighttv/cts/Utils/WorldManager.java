@@ -5,7 +5,6 @@ import fr.skyfighttv.cts.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,8 +20,6 @@ public class WorldManager {
     }
 
     public static void reload() {
-        YamlConfiguration config = FileManager.getValues().get(Files.Config);
-
         int createdNumber = 0;
         int number = 0;
         for (int i = 1; i <= Settings.getNumberOfWorld(); i++) {
