@@ -4,7 +4,8 @@ public enum Files {
     Config("config"),
     Kits("kits"),
     Lang("lang"),
-    Spawn("spawn");
+    Spawn("spawn"),
+    Sheep("sheep");
 
     private final String name;
 
