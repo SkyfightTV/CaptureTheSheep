@@ -15,6 +15,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Salut ça va
+ * <br/> dqdqd
+ *
+ * @author SkyF1ghtTV
+ * @since 0.1
+ */
 public class Main extends JavaPlugin {
 
     public static String ANSI_RESET = "";

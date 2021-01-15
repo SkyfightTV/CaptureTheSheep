@@ -54,6 +54,12 @@ public class GameManager {
 
     public static void startGame(World world) {
 
+
+        games.add(world);
+    }
+
+    public static void stopGame(World world) {
+
         games.add(world);
     }
 
