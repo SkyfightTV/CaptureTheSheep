@@ -35,7 +35,6 @@ public class GameManager {
                 playerGame.add(player);
 
                 numberPlayers.put(world, playerGame);
-                games.add(world);
 
                 player.getInventory().clear();
                 player.getInventory().setArmorContents(new ItemStack[0]);
@@ -55,9 +54,14 @@ public class GameManager {
 
     public static void startGame(World world) {
 
+        games.add(world);
     }
 
     public static HashMap<World, List<Player>> getNumberPlayers() {
         return numberPlayers;
+    }
+
+    public static List<World> getGames() {
+        return games;
     }
 }
