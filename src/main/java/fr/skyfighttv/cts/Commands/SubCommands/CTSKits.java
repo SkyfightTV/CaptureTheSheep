@@ -40,6 +40,7 @@ public class CTSKits {
             });
             inventory.addElement(item);
         }
+        player.closeInventory();
         inventory.open(player);
     }
 }
