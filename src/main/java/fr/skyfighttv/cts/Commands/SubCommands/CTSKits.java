@@ -15,8 +15,9 @@ import java.io.IOException;
 public class CTSKits {
     public static void init(Player player) {
         YamlConfiguration kitsConfig = FileManager.getValues().get(Files.Kits);
+        YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
-        CInventory inventory = new CInventory(27, "Kit menu");
+        CInventory inventory = new CInventory(config.getInt("GUI.Kits.Size"), config.getString("GUI.Kits.Title"));
 
         for (String kits : kitsConfig.getKeys(false)) {
             CItem item = new CItem(new ItemCreator(Material.getMaterial(kitsConfig.getString(kits + ".ItemMenu")), 0)
