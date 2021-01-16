@@ -1,7 +1,9 @@
 package fr.skyfighttv.cts.Utils;
 
 import fr.skyfighttv.cts.Commands.CTS;
+import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Settings;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -11,13 +13,16 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameManager {
     private static HashMap<World, List<Player>> numberPlayers;
+    private static HashMap<World, HashMap<Player, String>> teamPlayers;
     private static List<World> games;
 
     public GameManager() {
         numberPlayers = new HashMap<>();
+        teamPlayers = new HashMap<>();
         games = new ArrayList<>();
 
         for (World world : WorldManager.getWorlds()) {
@@ -42,9 +47,8 @@ public class GameManager {
                 CTS.inGamePlayers.add(player);
                 player.teleport(new Location(world, spawnConfig.getLocation("Wait").getX(), spawnConfig.getLocation("Wait").getY(), spawnConfig.getLocation("Wait").getZ()));
 
-                if (numberPlayers.get(world).size() >= Settings.getMaxPlayers() - 5) {
+                if (numberPlayers.get(world).size() >= Settings.getMaxPlayers() - 5)
                     startGame(world);
-                }
 
                 return true;
             }
@@ -53,9 +57,26 @@ public class GameManager {
     }
 
     public static void startGame(World world) {
+        YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
 
 
-        games.add(world);
+        AtomicInteger number = new AtomicInteger(10);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), () -> {
+            if (langConfig.contains("WaitTitle." + number.get())
+                    || langConfig.contains("WaitSubTitle." + number.get())) {
+                for (Player player : numberPlayers.get(world)) {
+                    player.sendTitle(langConfig.getString("WaitTitle." + number.get()), langConfig.getString("WaitSubTitle." + number.get()));
+                }
+            }
+
+            if (number.get() <= 0) {
+                games.add(world);
+
+
+            }
+
+            number.getAndDecrement();
+        }, 0, 20);
     }
 
     public static void stopGame(World world) {
@@ -69,5 +90,9 @@ public class GameManager {
 
     public static List<World> getGames() {
         return games;
+    }
+
+    public static HashMap<World, HashMap<Player, String>> getTeamPlayers() {
+        return teamPlayers;
     }
 }
