@@ -59,31 +59,39 @@ Game:
   #%damager% = player who killed the victim
   KillCommand: "eco give %damager% 150"
 
+GUI:
+  Kits:
+    Title: "Menu des kits"
+    Size: 27
+  Teams:
+    Title: "Choisi ta team"
+    Size: 9
+    Items:
+      BlueTeam:
+        Material: BLUE_BANNER
+        Title: "Team bleu"
+        Lore: [ ]
+        Location: 4
+      RedTeam:
+        Material: RED_BANNER
+        Title: "Team rouge"
+        Lore: [ ]
+        Location: 6
+
 #Setting up customs items in the lobby
 LobbyItems:
   StartItem:
     Material: DIAMOND_AXE
     Title: "Start Game"
-    Lore: []
+    Lore: [ ]
     Location: 4
-    Command: "ffarush play"
+    Command: "CTS play"
   KitsItem:
     Material: CHEST
     Title: "Kits"
     Lore: []
     Location: 5
-    Command: "ffarush kits"
-
-#Config the Tnt
-Tnt:
-  #List of all blocks broken by the tnt
-  BlocksBreakable:
-    - STONE
-    - DIRT
-  #Time before explosion in second
-  Time: 5
-  #Propulsive power of the tnt in relation to the players
-  PowerMultiplier: 1.5
+    Command: "CTS kits"
 
 #Config the AutoDeleter which allows you to automatically delete some blocks you own
 AutoDelete:
