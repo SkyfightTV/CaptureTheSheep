@@ -22,8 +22,8 @@ NotFullCommandSetSheep: "/cts setsheep <Blue/Red>"
 NoPermission: "Tu n'as pas la permission d'éxecuter cette commande !"
 #Message sent when the player is already on game
 AlreadyOnGame: "Tu es déjà en jeux !"
-JoinGame:
-AllGamesFull:
+JoinGame: "Tu viens de rejoindre une partie"
+AllGamesFull: "Toutes les parties sont pleines !"
 #Message sent when no kits have been configured
 NoneKits: "Il n'y a aucun kits !"
 #Message sent when the command send by the player is disable
@@ -31,6 +31,8 @@ CommandDisabled: "Cette commande est désactivé !"
 
 FailedSetSpawn: "Merci de rentrer un nom valide !"
 FailedSetSheep: "Merci de rentrer un nom valide !"
+
+CantLeave: "Tu es actuellement dans aucune partie !"
 
 #Messages sent when the command is a success
 SuccessSetSpawn: "Tu viens d'ajouter un spawn !"
