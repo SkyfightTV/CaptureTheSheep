@@ -31,21 +31,27 @@ public class CTS implements CommandExecutor {
             YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
             YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
+            if (args.length == 0) {
+                if (player.hasPermission("CTS.staff")) {
+                    player.sendMessage(langConfig.getString("NotFullCommandStaff"));
+                } else {
+                    player.sendMessage(langConfig.getString("NotFullCommandPlayer"));
+                }
+                return false;
+            }
+
             if (args[0].equalsIgnoreCase("play")) {
                 CTSPlay.init(player);
-            }
-            else if (args[0].equalsIgnoreCase("leave")) {
+            } else if (args[0].equalsIgnoreCase("leave")) {
                 CTSLeave.init(player);
-            }
-            else if (args[0].equalsIgnoreCase("kits")) {
+            } else if (args[0].equalsIgnoreCase("kits")) {
                 if (!config.getBoolean("CTS.Kits")) {
                     player.sendMessage(langConfig.getString("CommandDisabled"));
                     return false;
                 }
 
                 CTSKits.init(player);
-            }
-            else if (args[0].equalsIgnoreCase("setkit")) {
+            } else if (args[0].equalsIgnoreCase("setkit")) {
                 if (!player.hasPermission("CTS.setkit")) {
                     player.sendMessage(langConfig.getString("NoPermission"));
                     return false;
