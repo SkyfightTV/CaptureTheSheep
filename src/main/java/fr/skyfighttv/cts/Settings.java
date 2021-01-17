@@ -14,7 +14,7 @@ public class Settings {
     private static final String copiedWorldName = "world";
 
     @Config(path = "Game.MaxPlayers")
-    private static final Integer MaxPlayers = 16;
+    private static final Integer MaxPlayers = 2;
 
     public static Integer getMaxPlayers() {
         return MaxPlayers;

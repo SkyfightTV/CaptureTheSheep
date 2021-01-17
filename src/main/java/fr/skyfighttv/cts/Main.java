@@ -3,6 +3,7 @@ package fr.skyfighttv.cts;
 import fr.mrcubee.annotation.spigot.config.ConfigAnnotation;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
+import fr.skyfighttv.cts.Listeners.Player.PlayerJoin;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.GameManager;
 import fr.skyfighttv.cts.Utils.PlayersManager;
@@ -36,7 +37,7 @@ public class Main extends JavaPlugin {
     private static Main Instance;
 
     private final List<Listener> listeners = new ArrayList<>(Arrays.asList(
-
+            new PlayerJoin()
     ));
 
     @Override
