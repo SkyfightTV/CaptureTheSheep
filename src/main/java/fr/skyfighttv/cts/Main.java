@@ -1,5 +1,6 @@
 package fr.skyfighttv.cts;
 
+import fr.ChadOW.cinventory.CUtils;
 import fr.mrcubee.annotation.spigot.config.ConfigAnnotation;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
@@ -100,6 +101,9 @@ public class Main extends JavaPlugin {
 
         for (Listener listener : listeners)
             getServer().getPluginManager().registerEvents(listener, this);
+
+        CUtils.init(this);
+
         System.out.println(ANSI_CYAN + "Loading of the finalized plugin." + ANSI_RESET);
         System.out.println(" ");
     }
