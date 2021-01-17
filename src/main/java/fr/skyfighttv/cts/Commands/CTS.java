@@ -85,6 +85,17 @@ public class CTS implements CommandExecutor {
                 }
 
                 CTSSetSheep.init(player, args[1]);
+            } else if (args[0].equalsIgnoreCase("setZone")) {
+                if (!player.hasPermission("CTS.setzone")) {
+                    player.sendMessage(langConfig.getString("NoPermission"));
+                    return false;
+                }
+                if (args.length == 1) {
+                    player.sendMessage(langConfig.getString("NotFullCommandSetZone"));
+                    return false;
+                }
+
+                CTSSetZone.init(player, args[1]);
             } else if (args[0].equalsIgnoreCase("reload")) {
                 if (!player.hasPermission("CTS.reload")) {
                     player.sendMessage(langConfig.getString("NoPermission"));
