@@ -26,7 +26,7 @@ public class CTSSetSpawn {
 
             player.sendMessage(langConfig.getString("SuccessSetSpawn"));
         } else if (spawn.equalsIgnoreCase("Wait")) {
-            spawnConfig.set("Blue", player.getLocation());
+            spawnConfig.set("Wait", player.getLocation());
             FileManager.save(Files.Spawn);
 
             player.sendMessage(langConfig.getString("SuccessSetSpawn"));
