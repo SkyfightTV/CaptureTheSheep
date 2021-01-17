@@ -65,31 +65,31 @@ public class Main extends JavaPlugin {
         System.out.println(ANSI_BLUE + " / ___| " + ANSI_WHITE + "|_   _| " + ANSI_RED + "/ ___|" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "| |     " + ANSI_WHITE + "  | |   " + ANSI_RED + "\\___ \\" + ANSI_RESET);
         System.out.println(ANSI_BLUE + "| |___  " + ANSI_WHITE + "  | |   " + ANSI_RED + " ___) |" + ANSI_RESET);
-        System.out.println(ANSI_BLUE + " \\____|" + ANSI_WHITE + "  |_|   " + ANSI_RED + "|____/" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + " \\____|" + ANSI_WHITE + "   |_|   " + ANSI_RED + "|____/" + ANSI_RESET);
         System.out.println(" ");
-        getLogger().info(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
         new PlayersManager();
 
-        getLogger().info(ANSI_CYAN + "Loading configuration files in progress ..." + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Loading configuration files in progress ..." + ANSI_RESET);
         try {
             new FileManager();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        getLogger().info(ANSI_CYAN + "Loading worlds in progress ..." + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Loading worlds in progress ..." + ANSI_RESET);
         new WorldManager();
 
-        getLogger().info(ANSI_CYAN + "Loading games in progress ..." + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Loading games in progress ..." + ANSI_RESET);
         new GameManager();
 
-        getLogger().info(ANSI_CYAN + "Finalization of the loading of the plugin in progress ..." + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Finalization of the loading of the plugin in progress ..." + ANSI_RESET);
         getCommand("CaptureTheSheep").setExecutor(new CTS());
         getCommand("CaptureTheSheep").setTabCompleter(new CTSTab());
 
         for (Listener listener : listeners)
             getServer().getPluginManager().registerEvents(listener, this);
-        getLogger().info(ANSI_CYAN + "Loading of the finalized plugin." + ANSI_RESET);
+        System.out.println(ANSI_CYAN + "Loading of the finalized plugin." + ANSI_RESET);
         System.out.println(" ");
     }
 
