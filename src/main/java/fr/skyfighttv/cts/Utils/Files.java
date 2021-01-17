@@ -5,7 +5,8 @@ public enum Files {
     Kits("kits"),
     Lang("lang"),
     Spawn("spawn"),
-    Sheep("sheep");
+    Sheep("sheep"),
+    Zone("zone");
 
     private final String name;
 
