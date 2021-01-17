@@ -54,6 +54,7 @@ Game:
   MaxPlayers: 16
   #Time after spawn when the player is invincible in second
   Invincibility: 5
+  TeamSizeZone: 5
   #Command execute when a player was kill by an other player
   #Variables:
   #%victim% = player killed by the damager
