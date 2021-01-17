@@ -55,7 +55,7 @@ public class CTSTab implements TabCompleter {
             YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
             if (sender.hasPermission("CTS.staff")) {
-                List<String> tab = new ArrayList<>(Arrays.asList("Stats", "Leave", "setSpawn", "setSheep", "setKit", "setLobby", "reload"));
+                List<String> tab = new ArrayList<>(Arrays.asList("Stats", "Leave", "setSpawn", "setSheep", "setKit", "reload"));
 
                 if (config.getBoolean("CTS.Play"))
                     tab.add("Play");
