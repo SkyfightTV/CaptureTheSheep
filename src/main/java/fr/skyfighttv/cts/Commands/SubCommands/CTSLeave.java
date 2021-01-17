@@ -5,6 +5,7 @@ import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.GameManager;
 import fr.skyfighttv.cts.Utils.WorldManager;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -35,7 +36,7 @@ public class CTSLeave {
         CTS.inGamePlayers.remove(player);
 
         if (spawnConfig.contains("Lobby")) {
-            player.teleport(spawnConfig.getLocation("Lobby"));
+            player.teleport((Location) spawnConfig.get("Lobby"));
         } else {
             player.sendMessage("Please set lobby : /cts setlobby");
         }
