@@ -6,12 +6,10 @@ import fr.skyfighttv.cts.Settings;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Sheep;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -87,7 +85,6 @@ public class GameManager {
     public static void startGame(World world) {
         YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
 
-
         AtomicInteger number = new AtomicInteger(10);
         startGameId.put(world, Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), () -> {
             if (langConfig.contains("WaitTitle." + number.get())
@@ -103,29 +100,14 @@ public class GameManager {
 
                 games.add(world);
 
-                YamlConfiguration sheepConfig = FileManager.getValues().get(Files.Sheep);
+                if (WorldManager.getWorlds().size() == games.size()) {
+                    YamlConfiguration config = FileManager.getValues().get(Files.Config);
+                    config.set("Worlds.Number", config.getInt("Worlds.Number") + config.getInt("Worlds.Increase"));
+                    FileManager.save(Files.Config);
+                }
 
-                Sheep blueSheep = world.spawn((Location) sheepConfig.get("Blue"), Sheep.class);
-                blueSheep.setAI(false);
-                blueSheep.setAdult();
-                blueSheep.setCollidable(false);
-                blueSheep.setInvulnerable(true);
-                blueSheep.setSheared(false);
-                blueSheep.setGravity(false);
-                blueSheep.setBreed(false);
-                blueSheep.setColor(DyeColor.BLUE);
-
-                Sheep redSheep = world.spawn((Location) sheepConfig.get("Red"), Sheep.class);
-                redSheep.setAI(false);
-                redSheep.setAdult();
-                redSheep.setCollidable(false);
-                redSheep.setInvulnerable(true);
-                redSheep.setSheared(false);
-                redSheep.setGravity(false);
-                redSheep.setBreed(false);
-                redSheep.setColor(DyeColor.RED);
-
-                YamlConfiguration kitsConfig = FileManager.getValues().get(Files.Kits);
+                SheepManager.create(world, "Blue");
+                SheepManager.create(world, "Red");
 
                 blueTeam.putIfAbsent(world, new ArrayList<>());
                 redTeam.putIfAbsent(world, new ArrayList<>());
