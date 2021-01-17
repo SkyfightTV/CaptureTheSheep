@@ -16,6 +16,8 @@ public class CTSLeave {
         if (CTS.inGamePlayers.contains(player)
                 && WorldManager.getWorlds().contains(player.getWorld())) {
             leaveGame(player, player.getWorld());
+        } else {
+            player.sendMessage(FileManager.getValues().get(Files.Lang).getString("CantLeave"));
         }
     }
 
