@@ -146,19 +146,7 @@ public class GameManager {
 
                     teleportPlayerTeam(world, player);
 
-                    int emplacement = 0;
-                    for (Object kit : kitsConfig.getList(PlayersManager.getKit(player) + ".Content")) {
-                        if (!(kit == null)) {
-                            player.getInventory().setItem(emplacement, (ItemStack) kit);
-                        }
-                        emplacement++;
-                    }
-                    final List<ItemStack> itemStackList = new ArrayList<>();
-                    for (Object kit : kitsConfig.getList(PlayersManager.getKit(player) + ".ArmorContent")) {
-                        itemStackList.add((ItemStack) kit);
-                    }
-                    ItemStack[] itemStacks = itemStackList.toArray(new ItemStack[0]);
-                    player.getInventory().setArmorContents(itemStacks);
+                    givePlayerKit(player);
                 }
             }
 
@@ -166,7 +154,25 @@ public class GameManager {
         }, 0, 20));
     }
 
-    private static void teleportPlayerTeam(World world, Player player) {
+    public static void givePlayerKit(Player player) {
+        YamlConfiguration kitsConfig = FileManager.getValues().get(Files.Kits);
+
+        int emplacement = 0;
+        for (Object kit : kitsConfig.getList(PlayersManager.getKit(player) + ".Content")) {
+            if (!(kit == null)) {
+                player.getInventory().setItem(emplacement, (ItemStack) kit);
+            }
+            emplacement++;
+        }
+        final List<ItemStack> itemStackList = new ArrayList<>();
+        for (Object kit : kitsConfig.getList(PlayersManager.getKit(player) + ".ArmorContent")) {
+            itemStackList.add((ItemStack) kit);
+        }
+        ItemStack[] itemStacks = itemStackList.toArray(new ItemStack[0]);
+        player.getInventory().setArmorContents(itemStacks);
+    }
+
+    public static void teleportPlayerTeam(World world, Player player) {
         YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
 
         if (blueTeam.get(world).contains(player)) {
