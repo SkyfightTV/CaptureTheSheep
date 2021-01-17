@@ -3,11 +3,12 @@ package fr.skyfighttv.cts;
 import fr.mrcubee.annotation.spigot.config.ConfigAnnotation;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
-import fr.skyfighttv.cts.Listeners.Player.PlayerJoin;
-import fr.skyfighttv.cts.Utils.FileManager;
-import fr.skyfighttv.cts.Utils.GameManager;
-import fr.skyfighttv.cts.Utils.PlayersManager;
-import fr.skyfighttv.cts.Utils.WorldManager;
+import fr.skyfighttv.cts.Listeners.Entity.EntityDamage;
+import fr.skyfighttv.cts.Listeners.Entity.EntityExplode;
+import fr.skyfighttv.cts.Listeners.Entity.EntitySpawn;
+import fr.skyfighttv.cts.Listeners.Food.FoodLevelChange;
+import fr.skyfighttv.cts.Listeners.Player.*;
+import fr.skyfighttv.cts.Utils.*;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -37,7 +38,16 @@ public class Main extends JavaPlugin {
     private static Main Instance;
 
     private final List<Listener> listeners = new ArrayList<>(Arrays.asList(
-            new PlayerJoin()
+            new EntityDamage(),
+            new EntityExplode(),
+            new EntitySpawn(),
+            new FoodLevelChange(),
+            new PlayerDeath(),
+            new PlayerDropItem(),
+            new PlayerInteract(),
+            new PlayerInteractAtEntity(),
+            new PlayerJoin(),
+            new PlayerQuit()
     ));
 
     @Override
@@ -92,6 +102,11 @@ public class Main extends JavaPlugin {
             getServer().getPluginManager().registerEvents(listener, this);
         System.out.println(ANSI_CYAN + "Loading of the finalized plugin." + ANSI_RESET);
         System.out.println(" ");
+    }
+
+    @Override
+    public void onDisable() {
+        SheepManager.removeAll();
     }
 
     public static Main getInstance() {
