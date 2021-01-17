@@ -11,7 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
+import java.util.List;
 
 public class CTSTeams {
     public static void init(Player player) {
@@ -26,13 +26,12 @@ public class CTSTeams {
                     .setSlot(config.getInt("GUI.Teams.Items.BlueTeam.Location"));
 
             blueTeam.addEvent((cInventory1, cItem, player1, clickContext) -> {
-                if (GameManager.getTeamPlayers().containsKey(player.getWorld())) {
+                if (GameManager.getNumberPlayers().containsKey(player.getWorld())) {
                     YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
 
-                    HashMap<Player, String> teamPlayers = GameManager.getTeamPlayers().get(player.getWorld());
-                    teamPlayers.put(player, langConfig.getString("TeamsName.Blue"));
-
-                    GameManager.getTeamPlayers().put(player.getWorld(), teamPlayers);
+                    List<Player> teamPlayers = GameManager.getBlueTeam().get(player.getWorld());
+                    teamPlayers.add(player);
+                    GameManager.getBlueTeam().put(player.getWorld(), teamPlayers);
 
                     player.sendMessage(langConfig.getString("SuccessChooseTeam")
                             .replaceAll("%team%", langConfig.getString("TeamsName.Blue")));
@@ -46,13 +45,12 @@ public class CTSTeams {
                     .setSlot(config.getInt("GUI.Teams.Items.RedTeam.Location"));
 
             redTeam.addEvent((cInventory1, cItem, player1, clickContext) -> {
-                if (GameManager.getTeamPlayers().containsKey(player.getWorld())) {
+                if (GameManager.getNumberPlayers().containsKey(player.getWorld())) {
                     YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
 
-                    HashMap<Player, String> teamPlayers = GameManager.getTeamPlayers().get(player.getWorld());
-                    teamPlayers.put(player, langConfig.getString("TeamsName.Red"));
-
-                    GameManager.getTeamPlayers().put(player.getWorld(), teamPlayers);
+                    List<Player> teamPlayers = GameManager.getRedTeam().get(player.getWorld());
+                    teamPlayers.add(player);
+                    GameManager.getRedTeam().put(player.getWorld(), teamPlayers);
 
                     player.sendMessage(langConfig.getString("SuccessChooseTeam")
                             .replaceAll("%team%", langConfig.getString("TeamsName.Red")));
