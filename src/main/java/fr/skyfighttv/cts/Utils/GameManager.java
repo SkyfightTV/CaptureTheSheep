@@ -153,7 +153,7 @@ public class GameManager {
                         }
                         emplacement++;
                     }
-                    final List<ItemStack> itemStackList = new ArrayList<ItemStack>();
+                    final List<ItemStack> itemStackList = new ArrayList<>();
                     for (Object kit : kitsConfig.getList(PlayersManager.getKit(player) + ".ArmorContent")) {
                         itemStackList.add((ItemStack) kit);
                     }
