@@ -12,12 +12,12 @@ public class CTSSetSheep {
 
         if (sheep.equalsIgnoreCase("Blue")) {
             sheepConfig.set("Blue", player.getLocation().getBlock().getLocation());
-            FileManager.save(Files.Spawn);
+            FileManager.save(Files.Sheep);
 
             player.sendMessage(langConfig.getString("SuccessSetSheep"));
         } else if (sheep.equalsIgnoreCase("Red")) {
             sheepConfig.set("Red", player.getLocation().getBlock().getLocation());
-            FileManager.save(Files.Spawn);
+            FileManager.save(Files.Sheep);
 
             player.sendMessage(langConfig.getString("SuccessSetSheep"));
         } else {
