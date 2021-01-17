@@ -83,8 +83,8 @@
             <url>http://nexus.arkadgames.net/repository/minecraft/</url>
         </repository>
         <repository>
-            <id>Files</id>
-            <url>https://raw.github.com/SKyfightTV/Files/master/</url>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>File</id>
