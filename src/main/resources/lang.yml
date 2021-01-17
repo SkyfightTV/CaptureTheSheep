@@ -17,6 +17,7 @@ NotFullCommandStaff: "/cts <play/setspawn/setsheep/leave/setkit/kits/stats>"
 NotFullCommandSetSpawn: "/cts setspawn <numéro du spawn>"
 NotFullCommandSetKit: "/cts setkit <Nom du Kit>"
 NotFullCommandSetSheep: "/cts setsheep <Blue/Red>"
+NotFullCommandSetZone: "/cts setzone <Blue/Red>"
 
 #Message sent when the player has't the permission
 NoPermission: "Tu n'as pas la permission d'éxecuter cette commande !"
@@ -29,6 +30,7 @@ NoneKits: "Il n'y a aucun kits !"
 #Message sent when the command send by the player is disable
 CommandDisabled: "Cette commande est désactivé !"
 
+FailedSetZone: "Merci de rentrer un nom valide !"
 FailedSetSpawn: "Merci de rentrer un nom valide !"
 FailedSetSheep: "Merci de rentrer un nom valide !"
 
@@ -38,6 +40,7 @@ CantLeave: "Tu es actuellement dans aucune partie !"
 SuccessSetSpawn: "Tu viens d'ajouter un spawn !"
 SuccessSetSheep: "Tu viens d'ajouter un sheep !"
 SuccessSetKit: "Tu viens d'ajouter un kit !"
+SuccessSetZone: "Tu viens de set une zone"
 SuccessSetLobby: "Tu viens de set le nouveau lobby !"
 SuccessSelectKit: "Tu viens avec succès de sélectionner ton kit !"
 SuccessReload: "Tu viens de reload le plugin !"
