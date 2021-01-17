@@ -20,7 +20,8 @@ DebugMode: false
 ColorConsole: true
 
 Worlds:
-  Number: 2
+  Number: 5
+  Increase: 2
   Title: "CTS-"
   Copy: "world"
 
