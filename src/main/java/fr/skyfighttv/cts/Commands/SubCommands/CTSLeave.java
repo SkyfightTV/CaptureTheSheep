@@ -29,9 +29,6 @@ public class CTSLeave {
         numberPlayersGame.remove(player);
         GameManager.getNumberPlayers().put(world, numberPlayersGame);
 
-        if (GameManager.getNumberPlayers().get(world).size() == 0)
-            GameManager.stopGame(world);
-
         CTS.setLobbyInventory(player);
         CTS.inGamePlayers.remove(player);
 
@@ -40,5 +37,8 @@ public class CTSLeave {
         } else {
             player.sendMessage("Please set lobby : /cts setlobby");
         }
+
+        if (GameManager.getNumberPlayers().get(world).size() == 0)
+            GameManager.stopGame(world);
     }
 }
