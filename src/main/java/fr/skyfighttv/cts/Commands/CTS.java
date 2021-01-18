@@ -1,15 +1,18 @@
 package fr.skyfighttv.cts.Commands;
 
+import fr.ChadOW.cinventory.citem.ItemCreator;
 import fr.skyfighttv.cts.Commands.SubCommands.*;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.PlayersManager;
 import fr.skyfighttv.cts.Utils.WorldManager;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +23,18 @@ public class CTS implements CommandExecutor {
     public static List<Player> invinciblePlayers = new ArrayList<>();
 
     public static void setLobbyInventory(Player player) {
+        player.getInventory().clear();
+        player.getInventory().setArmorContents(new ItemStack[0]);
 
+        YamlConfiguration config = FileManager.getValues().get(Files.Config);
+
+        for (String items : config.getConfigurationSection("LobbyItems").getKeys(false)) {
+            player.getInventory().setItem(config.getInt("LobbyItems." + items + ".Location"),
+                    new ItemCreator(Material.getMaterial(config.getString("LobbyItems." + items + ".Material")), 0)
+                            .setName(config.getString("LobbyItems." + items + ".Title"))
+                            .setLores(config.getStringList("LobbyItems." + items + ".Lore"))
+                            .getItem());
+        }
     }
 
     @Override
