@@ -17,7 +17,8 @@ public class EntityDamage implements Listener {
             } else if (event.getEntity() instanceof Player
                     && CTS.inGamePlayers.contains(event.getEntity())
                     && event.getCause() == EntityDamageEvent.DamageCause.FALL
-                    || !GameManager.getGames().contains(event.getEntity().getWorld())) {
+                    || !GameManager.getGames().contains(event.getEntity().getWorld())
+                    || CTS.invinciblePlayers.contains(event.getEntity())) {
                 event.setCancelled(true);
             }
         }
