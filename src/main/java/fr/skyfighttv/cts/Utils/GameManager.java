@@ -1,6 +1,7 @@
 package fr.skyfighttv.cts.Utils;
 
 import fr.skyfighttv.cts.Commands.CTS;
+import fr.skyfighttv.cts.Commands.SubCommands.CTSLeave;
 import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Settings;
 import net.md_5.bungee.api.ChatMessageType;
@@ -41,6 +42,8 @@ public class GameManager {
     }
 
     public static boolean joinGame(Player player) {
+        YamlConfiguration config = FileManager.getValues().get(Files.Config);
+
         for (World world : numberPlayers.keySet()) {
             if (numberPlayers.get(world).size() < Settings.getMaxPlayers()
                     && !games.contains(world)) {
@@ -73,7 +76,7 @@ public class GameManager {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(numberPlayers.get(world).size() + " / " + Settings.getMaxPlayers()));
                 }, 0, 2));
 
-                if (numberPlayers.get(world).size() >= Settings.getMaxPlayers() - 5)
+                if (numberPlayers.get(world).size() >= Settings.getMaxPlayers() - (config.getInt("Game.MaxPlayers") - config.getInt("Game.MinPlayers")))
                     startGame(world);
 
                 return true;
@@ -84,9 +87,18 @@ public class GameManager {
 
     public static void startGame(World world) {
         YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
+        YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
-        AtomicInteger number = new AtomicInteger(10);
+        AtomicInteger number = new AtomicInteger(config.getInt("Game.WaitTime"));
         startGameId.put(world, Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), () -> {
+            if (numberPlayers.get(world).size() < Settings.getMaxPlayers() - (config.getInt("Game.MaxPlayers") - config.getInt("Game.MinPlayers"))) {
+                Bukkit.getScheduler().cancelTask(startGameId.get(world));
+                startGameId.remove(world);
+
+                for (Player player : numberPlayers.get(world))
+                    player.sendMessage(langConfig.getString("FailedGameStart"));
+            }
+
             if (langConfig.contains("WaitTitle." + number.get())
                     || langConfig.contains("WaitSubTitle." + number.get())) {
                 for (Player player : numberPlayers.get(world)) {
@@ -101,7 +113,6 @@ public class GameManager {
                 games.add(world);
 
                 if (WorldManager.getWorlds().size() == games.size()) {
-                    YamlConfiguration config = FileManager.getValues().get(Files.Config);
                     config.set("Worlds.Number", config.getInt("Worlds.Number") + config.getInt("Worlds.Increase"));
                     FileManager.save(Files.Config);
                 }
@@ -134,6 +145,15 @@ public class GameManager {
 
             number.getAndDecrement();
         }, 0, 20));
+    }
+
+    public static void endGame(World world) {
+        YamlConfiguration config = FileManager.getValues().get(Files.Config);
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
+            for (Player player : numberPlayers.get(world))
+                CTSLeave.leaveGame(player, world);
+        }, config.getInt("Game.EndGameTime"));
     }
 
     public static void givePlayerKit(Player player) {
@@ -175,8 +195,15 @@ public class GameManager {
     }
 
     public static void stopGame(World world) {
+        for (Player player : world.getPlayers())
+            CTSLeave.leaveGame(player, world);
 
-        games.add(world);
+        games.remove(world);
+        numberPlayers.remove(world);
+        redTeam.remove(world);
+        blueTeam.remove(world);
+
+        SheepManager.removeWorld(world);
     }
 
     public static HashMap<World, List<Player>> getNumberPlayers() {
