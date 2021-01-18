@@ -33,8 +33,12 @@ CommandDisabled: "Cette commande est désactivé !"
 FailedSetZone: "Merci de rentrer un nom valide !"
 FailedSetSpawn: "Merci de rentrer un nom valide !"
 FailedSetSheep: "Merci de rentrer un nom valide !"
+FailedGameStart: "La partie n'a pas pu se lancer car il n'y a plus assez de joueur !"
 
 CantLeave: "Tu es actuellement dans aucune partie !"
+
+#%player%
+PlayerScore: "%player% vient de marqué !"
 
 #Messages sent when the command is a success
 SuccessSetSpawn: "Tu viens d'ajouter un spawn !"
@@ -52,6 +56,9 @@ SuccessChooseTeam: "Tu viens de rejoindre l'équipe %team% !"
 TeamsName:
   Red: "Rouge"
   Blue: "Bleu"
+
+WaitTitle:
+  10: "Démarrage dans 10 secondes !"
 
 #Messages sent when the command is executed
 #Variables:
