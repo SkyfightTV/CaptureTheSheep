@@ -44,12 +44,15 @@ public class SheepManager {
                 && sheepGames.get(world).containsValue(sheep)) {
 
             String sheepTeam;
+            String zoneObjective;
 
-            if (sheepGames.get(world).get("Blue").equals(sheep))
+            if (sheepGames.get(world).get("Blue").equals(sheep)) {
                 sheepTeam = "Blue";
-            else if (sheepGames.get(world).get("Red").equals(sheep))
+                zoneObjective = "Red";
+            } else if (sheepGames.get(world).get("Red").equals(sheep)) {
                 sheepTeam = "Red";
-            else return;
+                zoneObjective = "Blue";
+            } else return;
 
             if ((sheepTeam.equals("Blue")
                     && GameManager.getBlueTeam().get(world).contains(player))
@@ -60,8 +63,24 @@ public class SheepManager {
             if (sheep.getPassenger() == null) {
                 sheep.setPassenger(player);
 
+                YamlConfiguration zoneConfig = FileManager.getValues().get(Files.Zone);
+                YamlConfiguration config = FileManager.getValues().get(Files.Config);
+
+                Location zoneLoc = (Location) zoneConfig.get(zoneObjective);
+                assert zoneLoc != null;
+
+                int size = config.getInt("Game.TeamSizeZone");
+
+                int x = zoneLoc.getBlockX() + size;
+                int _x = zoneLoc.getBlockX() - size;
+                int y = zoneLoc.getBlockY() + size;
+                int _y = zoneLoc.getBlockY() - size;
+                int z = zoneLoc.getBlockZ() + size;
+                int _z = zoneLoc.getBlockZ() - size;
+
                 sheedPassengerId.put(player, Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), () -> {
-                    if (sheep.getPassenger() == null) {
+                    if (sheep.getPassenger() == null
+                            || sheep.isDead()) {
                         YamlConfiguration sheepConfig = FileManager.getValues().get(Files.Sheep);
 
                         Location sheepSpawn = new Location(world
@@ -73,6 +92,17 @@ public class SheepManager {
 
                         Bukkit.getScheduler().cancelTask(sheedPassengerId.get(player));
                         sheedPassengerId.remove(player);
+                    }
+
+                    if (x > sheep.getLocation().getBlockX()
+                            && sheep.getLocation().getBlockX() > _x
+                            && y > sheep.getLocation().getBlockY()
+                            && sheep.getLocation().getBlockY() > _y
+                            && z > sheep.getLocation().getBlockZ()
+                            && sheep.getLocation().getBlockZ() > _z) {
+                        sheep.remove();
+
+                        GameManager.endGame(world);
                     }
                 }, 0, 10));
             }
