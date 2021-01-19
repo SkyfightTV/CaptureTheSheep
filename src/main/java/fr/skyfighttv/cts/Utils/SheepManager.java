@@ -8,6 +8,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
+import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 
@@ -104,6 +105,11 @@ public class SheepManager {
 
                         GameManager.endGame(world);
                     }
+
+                    Vector vector = player.getLocation().getDirection();
+                    vector.setY(0);
+
+                    sheep.getLocation().add(vector.toLocation(world));
                 }, 0, 10));
             }
         }
