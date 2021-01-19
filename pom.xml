@@ -8,6 +8,20 @@
     <artifactId>CTS</artifactId>
     <version>0.2</version>
 
+    <developers>
+        <developer>
+            <id>skyfighttv</id>
+            <name>SKyfightTV</name>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>MrCubee</name>
+            <email>contact@mrcubee.fr</email>
+        </contributor>
+    </contributors>
+
     <build>
         <defaultGoal>clean install</defaultGoal>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -79,8 +93,8 @@
 
     <repositories>
         <repository>
-            <id>arkadgames-public</id>
-            <url>http://nexus.arkadgames.net/repository/minecraft/</url>
+            <id>mrcubee-public</id>
+            <url>http://nexus.mrcubee.net/repository/minecraft/</url>
         </repository>
         <repository>
             <id>spigot-repo</id>
