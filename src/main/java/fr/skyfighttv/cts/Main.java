@@ -79,8 +79,6 @@ public class Main extends JavaPlugin {
         System.out.println(ANSI_BLUE + "| |___  " + ANSI_WHITE + "  | |   " + ANSI_RED + " ___) |" + ANSI_RESET);
         System.out.println(ANSI_BLUE + " \\____|" + ANSI_WHITE + "   |_|   " + ANSI_RED + "|____/" + ANSI_RESET);
         System.out.println(" ");
-        System.out.println(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
-        new PlayersManager();
 
         System.out.println(ANSI_CYAN + "Loading configuration files in progress ..." + ANSI_RESET);
         try {
@@ -89,22 +87,33 @@ public class Main extends JavaPlugin {
             e.printStackTrace();
         }
 
-        System.out.println(ANSI_CYAN + "Loading worlds in progress ..." + ANSI_RESET);
-        new WorldManager();
+        if (FileManager.getValues().get(Files.Config).getBoolean("IsSetup")) {
+            System.out.println(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
+            new PlayersManager();
 
-        System.out.println(ANSI_CYAN + "Loading games in progress ..." + ANSI_RESET);
-        new GameManager();
+            System.out.println(ANSI_CYAN + "Loading worlds in progress ..." + ANSI_RESET);
+            new WorldManager();
 
-        System.out.println(ANSI_CYAN + "Finalization of the loading of the plugin in progress ..." + ANSI_RESET);
+            System.out.println(ANSI_CYAN + "Loading games in progress ..." + ANSI_RESET);
+            new GameManager();
+
+            System.out.println(ANSI_CYAN + "Finalization of the loading of the plugin in progress ..." + ANSI_RESET);
+
+            for (Listener listener : listeners)
+                getServer().getPluginManager().registerEvents(listener, this);
+
+            CUtils.init(this);
+
+            System.out.println(ANSI_CYAN + "Loading of the finalized plugin." + ANSI_RESET);
+        } else {
+            System.out.println(ANSI_CYAN + "Waiting for the setup of the ingame plugin.");
+
+            getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        }
+
         getCommand("CaptureTheSheep").setExecutor(new CTS());
         getCommand("CaptureTheSheep").setTabCompleter(new CTSTab());
 
-        for (Listener listener : listeners)
-            getServer().getPluginManager().registerEvents(listener, this);
-
-        CUtils.init(this);
-
-        System.out.println(ANSI_CYAN + "Loading of the finalized plugin." + ANSI_RESET);
         System.out.println(" ");
     }
 
