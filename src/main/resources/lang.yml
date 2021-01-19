@@ -19,10 +19,13 @@ NotFullCommandSetKit: "/cts setkit <Nom du Kit>"
 NotFullCommandSetSheep: "/cts setsheep <Blue/Red>"
 NotFullCommandSetZone: "/cts setzone <Blue/Red>"
 
+SetupBefore: "Tu dois setup le plugin avant ! /cts setup"
+
 #Message sent when the player has't the permission
 NoPermission: "Tu n'as pas la permission d'éxecuter cette commande !"
 #Message sent when the player is already on game
 AlreadyOnGame: "Tu es déjà en jeux !"
+AlreadySetup: "Le plugin est déjà setup !"
 JoinGame: "Tu viens de rejoindre une partie"
 AllGamesFull: "Toutes les parties sont pleines !"
 #Message sent when no kits have been configured
