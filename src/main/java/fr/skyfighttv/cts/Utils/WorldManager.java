@@ -9,6 +9,7 @@ import org.bukkit.WorldCreator;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class WorldManager {
     private static List<World> worlds;
@@ -22,15 +23,15 @@ public class WorldManager {
     public static void reload() {
         int createdNumber = 0;
         int number = 0;
-        for (int i = 1; i <= Settings.getNumberOfWorld(); i++) {
-            String worldName = Settings.getWorldTitle() + i;
+        for (int i = 1; i <= Settings.getWorldsNumber(); i++) {
+            String worldName = Settings.getWorldsTitle() + i;
             File world = new File(worldName);
 
             if (!world.exists()) {
                 WorldCreator worldCreator = new WorldCreator(worldName);
 
                 try {
-                    worldCreator.copy(Bukkit.getWorld(Settings.getCopiedWorldName()));
+                    worldCreator.copy(Objects.requireNonNull(Bukkit.getWorld(Settings.getWorldsCopy())));
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }

@@ -1,6 +1,7 @@
 package fr.skyfighttv.cts.Utils;
 
 import fr.skyfighttv.cts.Main;
+import fr.skyfighttv.cts.Settings;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
@@ -65,12 +66,11 @@ public class SheepManager {
                 sheep.setPassenger(player);
 
                 YamlConfiguration zoneConfig = FileManager.getValues().get(Files.Zone);
-                YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
                 Location zoneLoc = (Location) zoneConfig.get(zoneObjective);
                 assert zoneLoc != null;
 
-                int size = config.getInt("Game.TeamSizeZone");
+                int size = Settings.getGUITeamsSize();
 
                 int x = zoneLoc.getBlockX() + size;
                 int _x = zoneLoc.getBlockX() - size;
