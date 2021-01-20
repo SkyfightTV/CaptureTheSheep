@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.skyfighttv</groupId>
-    <artifactId>CTS</artifactId>
-    <version>0.2</version>
+    <artifactId>CaptureTheSheep</artifactId>
+    <version>0.1</version>
 
     <build>
         <defaultGoal>clean install</defaultGoal>
@@ -112,4 +112,18 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+    
+    <developers>
+        <developer>
+            <id>skyfighttv</id>
+            <name>SKyfightTV</name>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>MrCubee</name>
+            <email>contact@mrcubee.fr</email>
+        </contributor>
+    </contributors>
 </project>
