@@ -1,6 +1,6 @@
 package fr.skyfighttv.cts.Commands.SubCommands;
 
-import fr.skyfighttv.cts.Commands.CTS;
+import fr.skyfighttv.cts.Game;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.GameManager;
@@ -14,7 +14,9 @@ import java.util.List;
 
 public class CTSLeave {
     public static void init(Player player) {
-        if (CTS.inGamePlayers.contains(player)
+        Game game = Game.getInstance();
+
+        if (game.getPlayers().contains(player)
                 && WorldManager.getWorlds().contains(player.getWorld())) {
             leaveGame(player, player.getWorld());
         } else {
@@ -23,14 +25,16 @@ public class CTSLeave {
     }
 
     public static void leaveGame(Player player, World world) {
+        Game game = Game.getInstance();
         YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
 
         List<Player> numberPlayersGame = GameManager.getNumberPlayers().get(world);
+
         numberPlayersGame.remove(player);
         GameManager.getNumberPlayers().put(world, numberPlayersGame);
 
-        CTS.setLobbyInventory(player);
-        CTS.inGamePlayers.remove(player);
+        game.setLobbyInventory(player);
+        game.getPlayers().remove(player);
 
         if (spawnConfig.contains("Lobby")) {
             player.teleport((Location) spawnConfig.get("Lobby"));

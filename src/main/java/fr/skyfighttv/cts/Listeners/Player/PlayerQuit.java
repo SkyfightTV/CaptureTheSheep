@@ -1,6 +1,6 @@
 package fr.skyfighttv.cts.Listeners.Player;
 
-import fr.skyfighttv.cts.Commands.CTS;
+import fr.skyfighttv.cts.Game;
 import fr.skyfighttv.cts.Utils.GameManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,11 +10,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class PlayerQuit implements Listener {
+
     @EventHandler(priority = EventPriority.MONITOR)
     public void onQuit(PlayerQuitEvent event) {
+        Game game = Game.getInstance();
         Player player = event.getPlayer();
 
-        CTS.inGamePlayers.remove(player);
+        game.getPlayers().remove(player);
 
         GameManager.getNumberPlayers().get(event.getPlayer().getWorld()).remove(player);
         GameManager.getRedTeam().get(event.getPlayer().getWorld()).remove(player);

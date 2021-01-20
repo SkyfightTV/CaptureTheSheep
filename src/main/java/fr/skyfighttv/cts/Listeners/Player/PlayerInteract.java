@@ -1,6 +1,6 @@
 package fr.skyfighttv.cts.Listeners.Player;
 
-import fr.skyfighttv.cts.Commands.CTS;
+import fr.skyfighttv.cts.Game;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import org.bukkit.Bukkit;
@@ -12,9 +12,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PlayerInteract implements Listener {
+
     @EventHandler(priority = EventPriority.MONITOR)
     public void onRightClick(PlayerInteractEvent event) {
-        if (!CTS.inGamePlayers.contains(event.getPlayer())) {
+        Game game = Game.getInstance();
+
+        if (!game.getPlayers().contains(event.getPlayer())) {
             if (!event.getPlayer().isOp()) {
                 event.setCancelled(true);
             }

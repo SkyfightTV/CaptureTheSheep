@@ -4,12 +4,14 @@ import fr.ChadOW.cinventory.CUtils;
 import fr.mrcubee.annotation.spigot.config.ConfigAnnotation;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
+import fr.skyfighttv.cts.Commands.CTSSetup;
 import fr.skyfighttv.cts.Listeners.Entity.EntityDamage;
 import fr.skyfighttv.cts.Listeners.Entity.EntityExplode;
 import fr.skyfighttv.cts.Listeners.Entity.EntitySpawn;
 import fr.skyfighttv.cts.Listeners.Food.FoodLevelChange;
 import fr.skyfighttv.cts.Listeners.Player.*;
 import fr.skyfighttv.cts.Utils.*;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -51,6 +53,8 @@ public class Main extends JavaPlugin {
             new PlayerQuit()
     ));
 
+    private Game game;
+
     @Override
     public void onLoad() {
         saveDefaultConfig();
@@ -59,8 +63,10 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Instance = this;
+        YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
+        this.game = new Game();
+        Instance = this;
         if (getConfig().getBoolean("ColorConsole")) {
             ANSI_RESET = "\u001B[0m";
             ANSI_BLACK = "\u001B[30m";
@@ -110,16 +116,18 @@ public class Main extends JavaPlugin {
 
             getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         }
-
-        getCommand("CaptureTheSheep").setExecutor(new CTS());
+        getCommand("CaptureTheSheep").setExecutor(config.getBoolean("IsSetup") ? new CTSSetup() : new CTS());
         getCommand("CaptureTheSheep").setTabCompleter(new CTSTab());
-
         System.out.println(" ");
     }
 
     @Override
     public void onDisable() {
         SheepManager.removeAll();
+    }
+
+    public Game getGame() {
+        return this.game;
     }
 
     public static Main getInstance() {

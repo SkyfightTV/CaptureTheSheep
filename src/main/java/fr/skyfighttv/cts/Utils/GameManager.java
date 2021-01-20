@@ -2,6 +2,7 @@ package fr.skyfighttv.cts.Utils;
 
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.SubCommands.CTSLeave;
+import fr.skyfighttv.cts.Game;
 import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Settings;
 import net.md_5.bungee.api.ChatMessageType;
@@ -42,6 +43,7 @@ public class GameManager {
     }
 
     public static boolean joinGame(Player player) {
+        Game game = Game.getInstance();
         YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
         for (World world : numberPlayers.keySet()) {
@@ -57,7 +59,7 @@ public class GameManager {
                 player.getInventory().clear();
                 player.getInventory().setArmorContents(new ItemStack[0]);
 
-                CTS.inGamePlayers.add(player);
+                game.getPlayers().add(player);
 
                 Location waitLoc = new Location(world
                         , ((Location) spawnConfig.get("Wait")).getX()

@@ -4,6 +4,7 @@ import fr.ChadOW.cinventory.cinventory.CInventory;
 import fr.ChadOW.cinventory.citem.CItem;
 import fr.ChadOW.cinventory.citem.ItemCreator;
 import fr.skyfighttv.cts.Commands.CTS;
+import fr.skyfighttv.cts.Game;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.GameManager;
@@ -14,8 +15,11 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class CTSTeams {
+
     public static void init(Player player) {
-        if (CTS.inGamePlayers.contains(player)) {
+        Game game = Game.getInstance();
+
+        if (game.getPlayers().contains(player)) {
             YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
             CInventory cInventory = new CInventory(config.getInt("GUI.Teams.Size"), config.getString("GUI.Teams.Title"));

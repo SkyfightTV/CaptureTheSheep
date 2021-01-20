@@ -1,6 +1,7 @@
 package fr.skyfighttv.cts.Listeners.Block;
 
 import fr.skyfighttv.cts.Commands.CTS;
+import fr.skyfighttv.cts.Game;
 import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
@@ -18,11 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlockPlace implements Listener {
+
     public static List<Block> blocksPlaced = new ArrayList<>();
 
     @EventHandler(priority = EventPriority.MONITOR)
     private void onBlockPlace(BlockPlaceEvent event) {
-        if (CTS.inGamePlayers.contains(event.getPlayer())) {
+        Game game = Game.getInstance();
+
+        if (game.getPlayers().contains(event.getPlayer())) {
             if (GameManager.getGames().contains(event.getPlayer().getWorld())) {
                 YamlConfiguration config = FileManager.getValues().get(Files.Config);
 

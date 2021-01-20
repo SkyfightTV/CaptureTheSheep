@@ -1,6 +1,6 @@
 package fr.skyfighttv.cts.Commands.SubCommands;
 
-import fr.skyfighttv.cts.Commands.CTS;
+import fr.skyfighttv.cts.Game;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.GameManager;
@@ -8,14 +8,16 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class CTSPlay {
+
     public static void init(Player player) {
+        Game game = Game.getInstance();
         YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
         FileManager.reload(Files.Kits);
         YamlConfiguration kitsConfig = FileManager.getValues().get(Files.Kits);
-        YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
-        YamlConfiguration config = FileManager.getValues().get(Files.Config);
+        YamlConfiguration langConfig = game.getLangConfig();
+        YamlConfiguration config = game.getConfig();
 
-        if (!CTS.inGamePlayers.contains(player)) {
+        if (!game.getPlayers().contains(player)) {
             if (!spawnConfig.contains("Wait")) {
                 player.sendMessage("Please setup the wait spawn before !");
                 return;
