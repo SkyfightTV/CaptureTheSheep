@@ -1,5 +1,6 @@
 package fr.skyfighttv.cts.Commands.SubCommands;
 
+import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,7 +14,6 @@ import java.util.List;
 public class CTSSetKit {
     public static void init(Player player, String kit) {
         YamlConfiguration kitsConfig = FileManager.getValues().get(Files.Kits);
-        YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
 
         List<ItemStack> content = new ArrayList<>(Arrays.asList(player.getInventory().getContents()));
         for (int i = 0; i < 4; i++)
@@ -27,6 +27,6 @@ public class CTSSetKit {
 
         FileManager.save(Files.Kits);
 
-        player.sendMessage(langConfig.getString("SuccessSetKit"));
+        player.sendMessage(Language.getSuccessSetKit());
     }
 }

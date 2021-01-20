@@ -3,6 +3,7 @@ package fr.skyfighttv.cts.Commands.SubCommands;
 import fr.ChadOW.cinventory.cinventory.CInventory;
 import fr.ChadOW.cinventory.citem.CItem;
 import fr.ChadOW.cinventory.citem.ItemCreator;
+import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.PlayersManager;
@@ -33,7 +34,7 @@ public class CTSKits {
                             e.printStackTrace();
                         }
 
-                        player.sendMessage(FileManager.getValues().get(Files.Lang).getString("SuccessSelectKit"));
+                        player.sendMessage(Language.getSuccessSelectKit());
 
                         inventory.close(player);
                     }

@@ -3,12 +3,10 @@ package fr.skyfighttv.cts.Commands;
 import com.google.common.base.Functions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import fr.skyfighttv.cts.Utils.FileManager;
-import fr.skyfighttv.cts.Utils.Files;
+import fr.skyfighttv.cts.Settings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.*;
 
@@ -51,17 +49,15 @@ public class CTSTab implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-        if(FileManager.getValues().get(Files.Config).getBoolean("IsSetup")) {
+        if (Settings.isSetup()) {
             if (args.length == 1) {
-                YamlConfiguration config = FileManager.getValues().get(Files.Config);
-
                 if (sender.hasPermission("CTS.staff")) {
                     List<String> tab = new ArrayList<>(Arrays.asList("Stats", "Leave", "setSpawn", "setSheep", "setKit", "reload"));
 
-                    if (config.getBoolean("CTS.Play"))
+                    if (Settings.isCTSPlay())
                         tab.add("Play");
 
-                    if (config.getBoolean("CTS.Kits"))
+                    if (Settings.isCTSKits())
                         tab.add("Kits");
 
                     Collections.reverse(tab);
@@ -70,10 +66,10 @@ public class CTSTab implements TabCompleter {
                 } else {
                     List<String> tab = new ArrayList<>(Arrays.asList("Stats", "Leave"));
 
-                    if (config.getBoolean("CTS.Play"))
+                    if (Settings.isCTSPlay())
                         tab.add("Play");
 
-                    if (config.getBoolean("CTS.Kits"))
+                    if (Settings.isCTSKits())
                         tab.add("Kits");
 
                     Collections.reverse(tab);
@@ -84,15 +80,6 @@ public class CTSTab implements TabCompleter {
                 return a(args, "Lobby", "Blue", "Red", "Wait");
             } else if (args[0].equalsIgnoreCase("setSheep")) {
                 return a(args, "Blue", "Red");
-            }
-        } else {
-            if (args.length == 0) {
-                List<String> tab = new ArrayList<>();
-
-                if (sender.hasPermission("CTS.setup"))
-                    tab.add("Setup");
-
-                return a(args, tab);
             }
         }
         return new ArrayList<>();

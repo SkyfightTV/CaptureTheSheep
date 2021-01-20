@@ -1,27 +1,24 @@
 package fr.skyfighttv.cts.Commands.SubCommands;
 
+import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 public class CTSSetZone {
     public static void init(Player player, String team) {
-        YamlConfiguration zoneConfig = FileManager.getValues().get(Files.Zone);
-        YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
+        if (Arrays.asList("blue", "red").contains(team.toLowerCase())) {
+            YamlConfiguration zoneConfig = FileManager.getValues().get(Files.Zone);
 
-        if (team.equalsIgnoreCase("Blue")) {
-            zoneConfig.set("Blue", player.getLocation().getBlock().getLocation());
+            zoneConfig.set(team.toLowerCase(), player.getLocation().getBlock().getLocation());
             FileManager.save(Files.Zone);
 
-            player.sendMessage(langConfig.getString("SuccessSetZone"));
-        } else if (team.equalsIgnoreCase("Red")) {
-            zoneConfig.set("Red", player.getLocation().getBlock().getLocation());
-            FileManager.save(Files.Zone);
-
-            player.sendMessage(langConfig.getString("SuccessSetZone"));
+            player.sendMessage(Language.getSuccessSetZone());
         } else {
-            player.sendMessage(langConfig.getString("FailedSetZone"));
+            player.sendMessage(Language.getFailedSetZone());
         }
     }
 }

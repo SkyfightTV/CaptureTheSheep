@@ -1,6 +1,7 @@
 package fr.skyfighttv.cts.Commands.SubCommands;
 
 import fr.skyfighttv.cts.Main;
+import fr.skyfighttv.cts.Settings;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import org.bukkit.Bukkit;
@@ -13,13 +14,12 @@ public class CTSSetup {
 
     public static void init(Player player) {
         YamlConfiguration config = FileManager.getValues().get(Files.Config);
-        YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
         YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
         YamlConfiguration sheepConfig = FileManager.getValues().get(Files.Sheep);
         YamlConfiguration kitsConfig = FileManager.getValues().get(Files.Kits);
         YamlConfiguration zoneConfig = FileManager.getValues().get(Files.Zone);
 
-        if (!config.getBoolean("IsSetup")) {
+        if (!Settings.isSetup()) {
             StringBuilder message = new StringBuilder();
 
             String spawnLobby = booleanToColor(spawnConfig.contains("Lobby"));
@@ -56,7 +56,6 @@ public class CTSSetup {
                 Bukkit.getPluginManager().disablePlugin(Main.getInstance());
                 Bukkit.getPluginManager().enablePlugin(Main.getInstance());
             } else {
-
                 message.append("1) Places spawns (/cts setspawn) : ")
                         .append(spawnBlue)
                         .append("Blue§f, ")
@@ -91,8 +90,6 @@ public class CTSSetup {
             message.append("-----------------------------------");
 
             player.sendMessage(message.toString());
-        } else {
-            player.sendMessage(langConfig.getString("AlreadySetup"));
         }
     }
 

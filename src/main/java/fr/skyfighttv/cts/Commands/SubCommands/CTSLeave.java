@@ -1,6 +1,7 @@
 package fr.skyfighttv.cts.Commands.SubCommands;
 
-import fr.skyfighttv.cts.Commands.CTS;
+import fr.skyfighttv.cts.Language;
+import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.GameManager;
@@ -10,32 +11,30 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.Set;
 
 public class CTSLeave {
     public static void init(Player player) {
-        if (CTS.inGamePlayers.contains(player)
+        if (GameManager.getInGamePlayers().contains(player)
                 && WorldManager.getWorlds().contains(player.getWorld())) {
             leaveGame(player, player.getWorld());
         } else {
-            player.sendMessage(FileManager.getValues().get(Files.Lang).getString("CantLeave"));
+            player.sendMessage(Language.getCantLeave());
         }
     }
 
     public static void leaveGame(Player player, World world) {
         YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
 
-        List<Player> numberPlayersGame = GameManager.getNumberPlayers().get(world);
+        Set<Player> numberPlayersGame = GameManager.getNumberPlayers().get(world);
         numberPlayersGame.remove(player);
         GameManager.getNumberPlayers().put(world, numberPlayersGame);
 
-        CTS.setLobbyInventory(player);
-        CTS.inGamePlayers.remove(player);
+        Main.setLobbyInventory(player);
+        GameManager.getInGamePlayers().remove(player);
 
         if (spawnConfig.contains("Lobby")) {
             player.teleport((Location) spawnConfig.get("Lobby"));
-        } else {
-            player.sendMessage("Please set lobby : /cts setlobby");
         }
 
         if (GameManager.getNumberPlayers().get(world).size() == 0)

@@ -3,7 +3,8 @@ package fr.skyfighttv.cts.Commands.SubCommands;
 import fr.ChadOW.cinventory.cinventory.CInventory;
 import fr.ChadOW.cinventory.citem.CItem;
 import fr.ChadOW.cinventory.citem.ItemCreator;
-import fr.skyfighttv.cts.Commands.CTS;
+import fr.skyfighttv.cts.Language;
+import fr.skyfighttv.cts.Settings;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.GameManager;
@@ -11,14 +12,14 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.List;
+import java.util.Set;
 
 public class CTSTeams {
     public static void init(Player player) {
-        if (CTS.inGamePlayers.contains(player)) {
+        if (GameManager.getInGamePlayers().contains(player)) {
             YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
-            CInventory cInventory = new CInventory(config.getInt("GUI.Teams.Size"), config.getString("GUI.Teams.Title"));
+            CInventory cInventory = new CInventory(Settings.getGUITeamsSize(), Settings.getGUITeamsTitle());
 
             CItem blueTeam = new CItem(new ItemCreator(Material.getMaterial(config.getString("GUI.Teams.Items.BlueTeam.Material")), 0)
                     .setName(config.getString("GUI.Teams.Items.BlueTeam.Title"))
@@ -27,14 +28,13 @@ public class CTSTeams {
 
             blueTeam.addEvent((cInventory1, cItem, player1, clickContext) -> {
                 if (GameManager.getNumberPlayers().containsKey(player.getWorld())) {
-                    YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
 
-                    List<Player> teamPlayers = GameManager.getBlueTeam().get(player.getWorld());
+                    Set<Player> teamPlayers = GameManager.getBlueTeam().get(player.getWorld());
                     teamPlayers.add(player);
                     GameManager.getBlueTeam().put(player.getWorld(), teamPlayers);
 
-                    player.sendMessage(langConfig.getString("SuccessChooseTeam")
-                            .replaceAll("%team%", langConfig.getString("TeamsName.Blue")));
+                    player.sendMessage(Language.getSuccessChooseTeam()
+                            .replaceAll("%team%", Language.getTeamsNameBlue()));
                 }
             });
             cInventory.addElement(blueTeam);
@@ -46,14 +46,13 @@ public class CTSTeams {
 
             redTeam.addEvent((cInventory1, cItem, player1, clickContext) -> {
                 if (GameManager.getNumberPlayers().containsKey(player.getWorld())) {
-                    YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
 
-                    List<Player> teamPlayers = GameManager.getRedTeam().get(player.getWorld());
+                    Set<Player> teamPlayers = GameManager.getRedTeam().get(player.getWorld());
                     teamPlayers.add(player);
                     GameManager.getRedTeam().put(player.getWorld(), teamPlayers);
 
-                    player.sendMessage(langConfig.getString("SuccessChooseTeam")
-                            .replaceAll("%team%", langConfig.getString("TeamsName.Red")));
+                    player.sendMessage(Language.getSuccessChooseTeam()
+                            .replaceAll("%team%", Language.getTeamsNameRed()));
                 }
             });
             cInventory.addElement(redTeam);
