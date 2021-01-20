@@ -39,8 +39,8 @@ Worlds:
 #After update, reload the plugin or restart the server
 
 CTS:
-  Kits: true
   Play: true
+  Kits: true
 
 ###########################################################################
 #  ____ ___  _   _ _____ ___ ____ _   _ ____      _  _____ ___ ___  _   _ #
@@ -60,11 +60,6 @@ Game:
   TeamSizeZone: 5
   EndGameTime: 10
   WaitTime: 30
-  #Command execute when a player was kill by an other player
-  #Variables:
-  #%victim% = player killed by the damager
-  #%damager% = player who killed the victim
-  KillCommand: "eco give %damager% 150"
 
 GUI:
   Kits:
