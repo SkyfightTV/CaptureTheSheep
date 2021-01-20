@@ -1,7 +1,7 @@
 package fr.skyfighttv.cts.Utils;
 
-import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.SubCommands.CTSLeave;
+import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Settings;
 import net.md_5.bungee.api.ChatMessageType;
@@ -13,43 +13,46 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameManager {
-    private static HashMap<World, List<Player>> numberPlayers;
-    private static HashMap<World, List<Player>> redTeam;
-    private static HashMap<World, List<Player>> blueTeam;
+    private static Set<Player> inGamePlayers;
+    private static Set<Player> invinciblePlayers;
+
+    private static HashMap<World, Set<Player>> numberPlayers;
+    private static HashMap<World, Set<Player>> redTeam;
+    private static HashMap<World, Set<Player>> blueTeam;
 
     private static HashMap<Player, Integer> actionBadId;
     private static HashMap<World, Integer> startGameId;
 
-    private static List<World> games;
+    private static Set<World> games;
 
     public GameManager() {
+        inGamePlayers = new HashSet<>();
+        invinciblePlayers = new HashSet<>();
         numberPlayers = new HashMap<>();
         actionBadId = new HashMap<>();
         startGameId = new HashMap<>();
         redTeam = new HashMap<>();
         blueTeam = new HashMap<>();
-        games = new ArrayList<>();
+        games = new HashSet<>();
 
         for (World world : WorldManager.getWorlds()) {
-            numberPlayers.put(world, new ArrayList<>());
+            numberPlayers.put(world, new HashSet<>());
         }
     }
 
     public static boolean joinGame(Player player) {
-        YamlConfiguration config = FileManager.getValues().get(Files.Config);
+        //YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
         for (World world : numberPlayers.keySet()) {
-            if (numberPlayers.get(world).size() < Settings.getMaxPlayers()
+            if (numberPlayers.get(world).size() < Settings.getGameMaxPlayers()
                     && !games.contains(world)) {
                 YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
 
-                List<Player> playerGame = numberPlayers.get(world);
+                Set<Player> playerGame = numberPlayers.get(world);
                 playerGame.add(player);
 
                 numberPlayers.put(world, playerGame);
@@ -57,7 +60,7 @@ public class GameManager {
                 player.getInventory().clear();
                 player.getInventory().setArmorContents(new ItemStack[0]);
 
-                CTS.inGamePlayers.add(player);
+                inGamePlayers.add(player);
 
                 Location waitLoc = new Location(world
                         , ((Location) spawnConfig.get("Wait")).getX()
@@ -73,10 +76,10 @@ public class GameManager {
                         return;
                     }
 
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(numberPlayers.get(world).size() + " / " + Settings.getMaxPlayers()));
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(numberPlayers.get(world).size() + " / " + Settings.getGameMaxPlayers()));
                 }, 0, 2));
 
-                if (numberPlayers.get(world).size() >= Settings.getMaxPlayers() - (config.getInt("Game.MaxPlayers") - config.getInt("Game.MinPlayers")))
+                if (numberPlayers.get(world).size() >= Settings.getGameMaxPlayers() - (Settings.getGameMaxPlayers() - Settings.getGameMinPlayers()))
                     startGame(world);
 
                 return true;
@@ -89,14 +92,14 @@ public class GameManager {
         YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
         YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
-        AtomicInteger number = new AtomicInteger(config.getInt("Game.WaitTime"));
+        AtomicInteger number = new AtomicInteger(Settings.getGameWaitTime());
         startGameId.put(world, Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), () -> {
-            if (numberPlayers.get(world).size() < Settings.getMaxPlayers() - (config.getInt("Game.MaxPlayers") - config.getInt("Game.MinPlayers"))) {
+            if (numberPlayers.get(world).size() < Settings.getGameMaxPlayers() - (Settings.getGameMaxPlayers() - Settings.getGameMinPlayers())) {
                 Bukkit.getScheduler().cancelTask(startGameId.get(world));
                 startGameId.remove(world);
 
                 for (Player player : numberPlayers.get(world))
-                    player.sendMessage(langConfig.getString("FailedGameStart"));
+                    player.sendMessage(Language.getFailedGameStart());
             }
 
             if (langConfig.contains("WaitTitle." + number.get())
@@ -113,25 +116,25 @@ public class GameManager {
                 games.add(world);
 
                 if (WorldManager.getWorlds().size() == games.size()) {
-                    config.set("Worlds.Number", config.getInt("Worlds.Number") + config.getInt("Worlds.Increase"));
+                    config.set("Worlds.Number", Settings.getWorldsNumber() + Settings.getWorldsIncrease());
                     FileManager.save(Files.Config);
                 }
 
                 SheepManager.create(world, "Blue");
                 SheepManager.create(world, "Red");
 
-                blueTeam.putIfAbsent(world, new ArrayList<>());
-                redTeam.putIfAbsent(world, new ArrayList<>());
+                blueTeam.putIfAbsent(world, new HashSet<>());
+                redTeam.putIfAbsent(world, new HashSet<>());
 
                 for (Player player : numberPlayers.get(world)) {
                     if (!blueTeam.get(world).contains(player)
                             && !redTeam.get(world).contains(player)) {
                         if (blueTeam.get(world).size() < redTeam.get(world).size()) {
-                            List<Player> teamPlayers = blueTeam.get(world);
+                            Set<Player> teamPlayers = blueTeam.get(world);
                             teamPlayers.add(player);
                             blueTeam.put(world, teamPlayers);
                         } else {
-                            List<Player> teamPlayers = redTeam.get(world);
+                            Set<Player> teamPlayers = redTeam.get(world);
                             teamPlayers.add(player);
                             redTeam.put(world, teamPlayers);
                         }
@@ -148,12 +151,10 @@ public class GameManager {
     }
 
     public static void endGame(World world) {
-        YamlConfiguration config = FileManager.getValues().get(Files.Config);
-
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
             for (Player player : numberPlayers.get(world))
                 CTSLeave.leaveGame(player, world);
-        }, config.getInt("Game.EndGameTime"));
+        }, Settings.getGameEndGameTime());
     }
 
     public static void givePlayerKit(Player player) {
@@ -206,19 +207,27 @@ public class GameManager {
         SheepManager.removeWorld(world);
     }
 
-    public static HashMap<World, List<Player>> getNumberPlayers() {
+    public static HashMap<World, Set<Player>> getNumberPlayers() {
         return numberPlayers;
     }
 
-    public static List<World> getGames() {
+    public static Set<World> getGames() {
         return games;
     }
 
-    public static HashMap<World, List<Player>> getRedTeam() {
+    public static HashMap<World, Set<Player>> getRedTeam() {
         return redTeam;
     }
 
-    public static HashMap<World, List<Player>> getBlueTeam() {
+    public static HashMap<World, Set<Player>> getBlueTeam() {
         return blueTeam;
+    }
+
+    public static Set<Player> getInGamePlayers() {
+        return inGamePlayers;
+    }
+
+    public static Set<Player> getInvinciblePlayers() {
+        return invinciblePlayers;
     }
 }

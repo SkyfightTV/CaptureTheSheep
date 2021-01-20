@@ -1,6 +1,9 @@
 package fr.skyfighttv.cts.Utils;
 
+import fr.mrcubee.annotation.spigot.config.ConfigAnnotation;
+import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Main;
+import fr.skyfighttv.cts.Settings;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
@@ -18,7 +21,6 @@ public class FileManager {
             File fileRessource = new File(Main.getInstance().getDataFolder() + "/" + files.getName() + ".yml");
             if (!fileRessource.exists()) {
                 InputStream fileStream = Main.getInstance().getResource(files.getName() + ".yml");
-                assert fileStream != null;
                 byte[] buffer = new byte[fileStream.available()];
                 fileStream.read(buffer);
 
@@ -31,6 +33,13 @@ public class FileManager {
             number++;
         }
         System.out.println(Main.ANSI_GREEN + createdNumber + " files created and " + number + " files loaded." + Main.ANSI_RESET);
+
+        loadClass();
+    }
+
+    private static void loadClass() {
+        ConfigAnnotation.loadClass(values.get(Files.Config), Settings.class);
+        ConfigAnnotation.loadClass(values.get(Files.Lang), Language.class);
     }
 
     public static void save(Files files) {
@@ -45,6 +54,8 @@ public class FileManager {
             e.printStackTrace();
         }
         values.put(files, YamlConfiguration.loadConfiguration(file));
+
+        loadClass();
     }
 
     public static void saveAll() {
@@ -61,6 +72,8 @@ public class FileManager {
         }
 
         values.put(files, YamlConfiguration.loadConfiguration(file));
+
+        loadClass();
     }
 
     public static void reloadAll() {
