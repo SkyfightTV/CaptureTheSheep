@@ -1,7 +1,7 @@
 package fr.skyfighttv.cts;
 
 import fr.ChadOW.cinventory.CUtils;
-import fr.mrcubee.annotation.spigot.config.ConfigAnnotation;
+import fr.ChadOW.cinventory.citem.ItemCreator;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
 import fr.skyfighttv.cts.Listeners.Entity.EntityDamage;
@@ -10,7 +10,11 @@ import fr.skyfighttv.cts.Listeners.Entity.EntitySpawn;
 import fr.skyfighttv.cts.Listeners.Food.FoodLevelChange;
 import fr.skyfighttv.cts.Listeners.Player.*;
 import fr.skyfighttv.cts.Utils.*;
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -51,15 +55,31 @@ public class Main extends JavaPlugin {
             new PlayerQuit()
     ));
 
+    public static void setLobbyInventory(Player player) {
+        player.getInventory().clear();
+        player.getInventory().setArmorContents(new ItemStack[0]);
+
+        YamlConfiguration config = FileManager.getValues().get(Files.Config);
+
+        for (String items : config.getConfigurationSection("LobbyItems").getKeys(false)) {
+            player.getInventory().setItem(config.getInt("LobbyItems." + items + ".Location"),
+                    new ItemCreator(Material.getMaterial(config.getString("LobbyItems." + items + ".Material")), 0)
+                            .setName(config.getString("LobbyItems." + items + ".Title"))
+                            .setLores(config.getStringList("LobbyItems." + items + ".Lore"))
+                            .getItem());
+        }
+    }
+
     @Override
-    public void onLoad() {
-        saveDefaultConfig();
-        ConfigAnnotation.loadClass(getConfig(), Settings.class);
+    public void onDisable() {
+        SheepManager.removeAll();
     }
 
     @Override
     public void onEnable() {
         Instance = this;
+
+        saveDefaultConfig();
 
         if (getConfig().getBoolean("ColorConsole")) {
             ANSI_RESET = "\u001B[0m";
@@ -87,7 +107,7 @@ public class Main extends JavaPlugin {
             e.printStackTrace();
         }
 
-        if (FileManager.getValues().get(Files.Config).getBoolean("IsSetup")) {
+        if (Settings.isSetup()) {
             System.out.println(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
             new PlayersManager();
 
@@ -115,11 +135,6 @@ public class Main extends JavaPlugin {
         getCommand("CaptureTheSheep").setTabCompleter(new CTSTab());
 
         System.out.println(" ");
-    }
-
-    @Override
-    public void onDisable() {
-        SheepManager.removeAll();
     }
 
     public static Main getInstance() {
