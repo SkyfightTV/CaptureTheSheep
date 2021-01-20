@@ -1,6 +1,5 @@
 package fr.skyfighttv.cts.Listeners.Player;
 
-import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Utils.GameManager;
 import fr.skyfighttv.cts.Utils.SheepManager;
 import org.bukkit.entity.Player;
@@ -13,7 +12,7 @@ public class PlayerInteractAtEntity implements Listener {
     @EventHandler
     private void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
         if (event.getRightClicked() instanceof Sheep
-                && CTS.inGamePlayers.contains(event.getPlayer())
+                && GameManager.getInGamePlayers().contains(event.getPlayer())
                 && GameManager.getGames().contains(event.getPlayer().getWorld())) {
             Sheep sheepClicked = (Sheep) event.getRightClicked();
             Player player = event.getPlayer();

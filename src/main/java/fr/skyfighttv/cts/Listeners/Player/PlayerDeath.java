@@ -1,9 +1,7 @@
 package fr.skyfighttv.cts.Listeners.Player;
 
-import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Main;
-import fr.skyfighttv.cts.Utils.FileManager;
-import fr.skyfighttv.cts.Utils.Files;
+import fr.skyfighttv.cts.Settings;
 import fr.skyfighttv.cts.Utils.GameManager;
 import fr.skyfighttv.cts.Utils.PlayersManager;
 import org.bukkit.Bukkit;
@@ -20,7 +18,7 @@ public class PlayerDeath implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) throws IOException {
         Player player = event.getEntity();
 
-        if (CTS.inGamePlayers.contains(player)
+        if (GameManager.getInGamePlayers().contains(player)
                 && GameManager.getGames().contains(event.getEntity().getWorld())) {
             event.getDrops().clear();
 
@@ -31,9 +29,9 @@ public class PlayerDeath implements Listener {
             GameManager.teleportPlayerTeam(event.getEntity().getWorld(), player);
             GameManager.givePlayerKit(player);
 
-            CTS.invinciblePlayers.add(player);
+            GameManager.getInvinciblePlayers().add(player);
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> CTS.invinciblePlayers.remove(player), FileManager.getValues().get(Files.Config).getInt("Game.Invincibility"));
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> GameManager.getInvinciblePlayers().remove(player), (Settings.getGameInvincibility() * 20L));
         }
     }
 }

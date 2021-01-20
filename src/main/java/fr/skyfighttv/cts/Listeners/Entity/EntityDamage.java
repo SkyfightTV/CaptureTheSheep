@@ -1,6 +1,5 @@
 package fr.skyfighttv.cts.Listeners.Entity;
 
-import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Utils.GameManager;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
@@ -15,10 +14,10 @@ public class EntityDamage implements Listener {
             if (event.getEntity() instanceof Sheep) {
                 event.setCancelled(true);
             } else if (event.getEntity() instanceof Player
-                    && CTS.inGamePlayers.contains(event.getEntity())
+                    && GameManager.getInGamePlayers().contains(event.getEntity())
                     && event.getCause() == EntityDamageEvent.DamageCause.FALL
                     || !GameManager.getGames().contains(event.getEntity().getWorld())
-                    || CTS.invinciblePlayers.contains(event.getEntity())) {
+                    || GameManager.getInvinciblePlayers().contains(event.getEntity())) {
                 event.setCancelled(true);
             }
         }
