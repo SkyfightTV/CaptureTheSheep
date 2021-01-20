@@ -51,40 +51,50 @@ public class CTSTab implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-        if (args.length == 1) {
-            YamlConfiguration config = FileManager.getValues().get(Files.Config);
+        if(FileManager.getValues().get(Files.Config).getBoolean("IsSetup")) {
+            if (args.length == 1) {
+                YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
-            if (sender.hasPermission("CTS.staff")) {
-                List<String> tab = new ArrayList<>(Arrays.asList("Stats", "Leave", "setSpawn", "setSheep", "setKit", "reload"));
+                if (sender.hasPermission("CTS.staff")) {
+                    List<String> tab = new ArrayList<>(Arrays.asList("Stats", "Leave", "setSpawn", "setSheep", "setKit", "reload"));
 
-                if (config.getBoolean("CTS.Play"))
-                    tab.add("Play");
+                    if (config.getBoolean("CTS.Play"))
+                        tab.add("Play");
 
-                if (config.getBoolean("CTS.Kits"))
-                    tab.add("Kits");
+                    if (config.getBoolean("CTS.Kits"))
+                        tab.add("Kits");
 
-                Collections.reverse(tab);
+                    Collections.reverse(tab);
 
-                return a(args, tab);
-            } else {
-                List<String> tab = new ArrayList<>(Arrays.asList("Stats", "Leave"));
+                    return a(args, tab);
+                } else {
+                    List<String> tab = new ArrayList<>(Arrays.asList("Stats", "Leave"));
 
-                if (config.getBoolean("CTS.Play"))
-                    tab.add("Play");
+                    if (config.getBoolean("CTS.Play"))
+                        tab.add("Play");
 
-                if (config.getBoolean("CTS.Kits"))
-                    tab.add("Kits");
+                    if (config.getBoolean("CTS.Kits"))
+                        tab.add("Kits");
 
-                Collections.reverse(tab);
+                    Collections.reverse(tab);
+
+                    return a(args, tab);
+                }
+            } else if (args[0].equalsIgnoreCase("setSpawn")) {
+                return a(args, "Lobby", "Blue", "Red", "Wait");
+            } else if (args[0].equalsIgnoreCase("setSheep")) {
+                return a(args, "Blue", "Red");
+            }
+        } else {
+            if (args.length == 0) {
+                List<String> tab = new ArrayList<>();
+
+                if (sender.hasPermission("CTS.setup"))
+                    tab.add("Setup");
 
                 return a(args, tab);
             }
-        } else if (args[0].equalsIgnoreCase("setSpawn")) {
-            return a(args, "Lobby", "Blue", "Red", "Wait");
-        } else if (args[0].equalsIgnoreCase("setSheep")) {
-            return a(args, "Blue", "Red");
         }
         return new ArrayList<>();
     }
-
 }
