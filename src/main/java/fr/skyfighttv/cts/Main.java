@@ -72,7 +72,8 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        SheepManager.removeAll();
+        if (Settings.isSetup())
+            SheepManager.removeAll();
     }
 
     @Override
@@ -107,10 +108,10 @@ public class Main extends JavaPlugin {
             e.printStackTrace();
         }
 
-        if (Settings.isSetup()) {
-            System.out.println(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
-            new PlayersManager();
+        System.out.println(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
+        new PlayersManager();
 
+        if (Settings.isSetup()) {
             System.out.println(ANSI_CYAN + "Loading worlds in progress ..." + ANSI_RESET);
             new WorldManager();
 
@@ -122,11 +123,13 @@ public class Main extends JavaPlugin {
             for (Listener listener : listeners)
                 getServer().getPluginManager().registerEvents(listener, this);
 
+            new SheepManager();
+
             CUtils.init(this);
 
             System.out.println(ANSI_CYAN + "Loading of the finalized plugin." + ANSI_RESET);
         } else {
-            System.out.println(ANSI_CYAN + "Waiting for the setup of the ingame plugin.");
+            System.out.println(ANSI_CYAN + "Waiting for the setup of the ingame plugin." + ANSI_RESET);
 
             getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         }
