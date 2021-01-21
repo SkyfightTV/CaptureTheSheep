@@ -7,91 +7,91 @@ import java.util.List;
 
 public class Language {
     @Config(path = "NotFullCommandPlayer", color = true)
-    private static final String NotFullCommandPlayer = "/cts <play/leave/kits/stats>";
+    private static String NotFullCommandPlayer = "/cts <play/leave/kits/stats>";
 
     @Config(path = "NotFullCommandStaff", color = true)
-    private static final String NotFullCommandStaff = "/cts <play/setspawn/setsheep/leave/setkit/kits/stats>";
+    private static String NotFullCommandStaff = "/cts <play/setspawn/setsheep/leave/setkit/kits/stats>";
 
     @Config(path = "NotFullCommandSetSpawn", color = true)
-    private static final String NotFullCommandSetSpawn = "/cts setspawn <numéro du spawn>";
+    private static String NotFullCommandSetSpawn = "/cts setspawn <numéro du spawn>";
 
     @Config(path = "NotFullCommandSetKit", color = true)
-    private static final String NotFullCommandSetKit = "/cts setkit <Nom du Kit>";
+    private static String NotFullCommandSetKit = "/cts setkit <Nom du Kit>";
 
     @Config(path = "NotFullCommandSetSheep", color = true)
-    private static final String NotFullCommandSetSheep = "/cts setsheep <Blue/Red>";
+    private static String NotFullCommandSetSheep = "/cts setsheep <Blue/Red>";
 
     @Config(path = "NotFullCommandSetZone", color = true)
-    private static final String NotFullCommandSetZone = "/cts setzone <Blue/Red>";
+    private static String NotFullCommandSetZone = "/cts setzone <Blue/Red>";
 
     @Config(path = "NoPermission", color = true)
-    private static final String NoPermission = "Tu n'as pas la permission d'éxecuter cette commande !";
+    private static String NoPermission = "Tu n'as pas la permission d'éxecuter cette commande !";
 
     @Config(path = "AlreadyOnGame", color = true)
-    private static final String AlreadyOnGame = "Tu es déjà en jeux !";
+    private static String AlreadyOnGame = "Tu es déjà en jeux !";
 
     @Config(path = "JoinGame", color = true)
-    private static final String JoinGame = "Tu viens de rejoindre une partie";
+    private static String JoinGame = "Tu viens de rejoindre une partie";
 
     @Config(path = "AllGamesFull", color = true)
-    private static final String AllGamesFull = "Toutes les parties sont pleines !";
+    private static String AllGamesFull = "Toutes les parties sont pleines !";
 
     @Config(path = "NoneKits", color = true)
-    private static final String NoneKits = "Il n'y a aucun kits !";
+    private static String NoneKits = "Il n'y a aucun kits !";
 
     @Config(path = "CommandDisabled", color = true)
-    private static final String CommandDisabled = "Cette commande est désactivé !";
+    private static String CommandDisabled = "Cette commande est désactivé !";
 
     @Config(path = "FailedSetZone", color = true)
-    private static final String FailedSetZone = "Merci de rentrer un nom valide !";
+    private static String FailedSetZone = "Merci de rentrer un nom valide !";
 
     @Config(path = "FailedSetSpawn", color = true)
-    private static final String FailedSetSpawn = "Merci de rentrer un nom valide !";
+    private static String FailedSetSpawn = "Merci de rentrer un nom valide !";
 
     @Config(path = "FailedSetSheep", color = true)
-    private static final String FailedSetSheep = "Merci de rentrer un nom valide !";
+    private static String FailedSetSheep = "Merci de rentrer un nom valide !";
 
     @Config(path = "FailedGameStart", color = true)
-    private static final String FailedGameStart = "La partie n'a pas pu se lancer car il n'y a plus assez de joueur !";
+    private static String FailedGameStart = "La partie n'a pas pu se lancer car il n'y a plus assez de joueur !";
 
     @Config(path = "CantLeave", color = true)
-    private static final String CantLeave = "Tu es actuellement dans aucune partie !";
+    private static String CantLeave = "Tu es actuellement dans aucune partie !";
 
     @Config(path = "PlayerScore", color = true)
-    private static final String PlayerScore = "%player% vient de marqué !";
+    private static String PlayerScore = "%player% vient de marqué !";
 
     @Config(path = "SuccessSetSpawn", color = true)
-    private static final String SuccessSetSpawn = "Tu viens d'ajouter un spawn !";
+    private static String SuccessSetSpawn = "Tu viens d'ajouter un spawn !";
 
     @Config(path = "SuccessSetSheep", color = true)
-    private static final String SuccessSetSheep = "Tu viens d'ajouter un sheep !";
+    private static String SuccessSetSheep = "Tu viens d'ajouter un sheep !";
 
     @Config(path = "SuccessSetKit", color = true)
-    private static final String SuccessSetKit = "Tu viens d'ajouter un kit !";
+    private static String SuccessSetKit = "Tu viens d'ajouter un kit !";
 
     @Config(path = "SuccessSetZone", color = true)
-    private static final String SuccessSetZone = "Tu viens de set une zone";
+    private static String SuccessSetZone = "Tu viens de set une zone";
 
     @Config(path = "SuccessSetLobby", color = true)
-    private static final String SuccessSetLobby = "Tu viens de set le nouveau lobby !";
+    private static String SuccessSetLobby = "Tu viens de set le nouveau lobby !";
 
     @Config(path = "SuccessSelectKit", color = true)
-    private static final String SuccessSelectKit = "Tu viens avec succès de sélectionner ton kit !";
+    private static String SuccessSelectKit = "Tu viens avec succès de sélectionner ton kit !";
 
     @Config(path = "SuccessReload", color = true)
-    private static final String SuccessReload = "Tu viens de reload le plugin !";
+    private static String SuccessReload = "Tu viens de reload le plugin !";
 
     @Config(path = "SuccessChooseTeam", color = true)
-    private static final String SuccessChooseTeam = "Tu viens de rejoindre l'équipe %team% !";
+    private static String SuccessChooseTeam = "Tu viens de rejoindre l'équipe %team% !";
 
     @Config(path = "TeamsName.Red", color = true)
-    private static final String TeamsNameRed = "Rouge";
+    private static String TeamsNameRed = "Rouge";
 
     @Config(path = "TeamsName.Blue", color = true)
-    private static final String TeamsNameBlue = "Bleu";
+    private static String TeamsNameBlue = "Bleu";
 
     @Config(path = "StatsMessage", color = true)
-    private static final List<String> StatsMessage = Arrays.asList(
+    private static List<String> StatsMessage = Arrays.asList(
             "---------------------",
             "Morts : %death%",
             "Kills : %kill%",
