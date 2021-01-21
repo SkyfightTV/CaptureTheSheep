@@ -49,39 +49,37 @@ public class CTSTab implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-        if (Settings.isSetup()) {
-            if (args.length == 1) {
-                if (sender.hasPermission("CTS.staff")) {
-                    List<String> tab = new ArrayList<>(Arrays.asList("Stats", "Leave", "setSpawn", "setSheep", "setKit", "reload"));
+        if (args.length == 1) {
+            if (sender.hasPermission("CTS.staff")) {
+                List<String> tab = new ArrayList<>(Arrays.asList("setSpawn", "setSheep", "setZone", "setKit", "reload"));
 
-                    if (Settings.isCTSPlay())
-                        tab.add("Play");
+                return setupTab(args, tab);
+            } else {
+                List<String> tab = new ArrayList<>();
 
-                    if (Settings.isCTSKits())
-                        tab.add("Kits");
-
-                    Collections.reverse(tab);
-
-                    return a(args, tab);
-                } else {
-                    List<String> tab = new ArrayList<>(Arrays.asList("Stats", "Leave"));
-
-                    if (Settings.isCTSPlay())
-                        tab.add("Play");
-
-                    if (Settings.isCTSKits())
-                        tab.add("Kits");
-
-                    Collections.reverse(tab);
-
-                    return a(args, tab);
-                }
-            } else if (args[0].equalsIgnoreCase("setSpawn")) {
-                return a(args, "Lobby", "Blue", "Red", "Wait");
-            } else if (args[0].equalsIgnoreCase("setSheep")) {
-                return a(args, "Blue", "Red");
+                return setupTab(args, tab);
             }
+        } else if (args[0].equalsIgnoreCase("setSpawn")) {
+            return a(args, "Lobby", "Blue", "Red", "Wait");
+        } else if (args[0].equalsIgnoreCase("setSheep")) {
+            return a(args, "Blue", "Red");
         }
         return new ArrayList<>();
+    }
+
+    private List<String> setupTab(String[] args, List<String> tab) {
+        if (Settings.isSetup()) {
+            tab.addAll(Arrays.asList("Stats", "Leave"));
+
+            if (Settings.isCTSPlay())
+                tab.add("Play");
+
+            if (Settings.isCTSKits())
+                tab.add("Kits");
+        }
+
+        Collections.reverse(tab);
+
+        return a(args, tab);
     }
 }
