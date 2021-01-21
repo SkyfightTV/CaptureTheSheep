@@ -14,113 +14,144 @@ import org.bukkit.entity.Player;
 import java.io.IOException;
 
 public class CTS implements CommandExecutor {
+    public static boolean verifSetup(Player player) {
+        if (!Settings.isSetup()) {
+            if (!player.hasPermission("CTS.setup")) {
+                player.sendMessage(Language.getNoPermission());
+                return true;
+            }
+
+            CTSSetup.init(player);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
+            if (args.length == 0) {
+                notFullCommand(player);
+                return false;
+            }
 
-            if (Settings.isSetup()) {
-                if (args.length == 0) {
-                    if (player.hasPermission("CTS.staff"))
-                        player.sendMessage(Language.getNotFullCommandStaff());
-                    else
-                        player.sendMessage(Language.getNotFullCommandPlayer());
+            switch (args[0].toLowerCase()) {
+                case "play":
+                    if (!Settings.isCTSPlay()) {
+                        player.sendMessage(Language.getCommandDisabled());
+                        return false;
+                    }
+
+                    if (verifSetup(player)) return false;
+
+                    CTSPlay.init(player);
+                    break;
+                case "leave":
+                    if (verifSetup(player)) return false;
+
+                    CTSLeave.init(player);
+                    break;
+                case "kits":
+                    if (!Settings.isCTSKits()) {
+                        player.sendMessage(Language.getCommandDisabled());
+                        return false;
+                    }
+
+                    if (verifSetup(player)) return false;
+
+                    CTSKits.init(player);
+                    break;
+                case "setkit":
+                    if (!player.hasPermission("CTS.setkit")) {
+                        player.sendMessage(Language.getNoPermission());
+                        return false;
+                    }
+                    if (args.length == 1) {
+                        player.sendMessage(Language.getNotFullCommandSetKit());
+                        return false;
+                    }
+
+                    CTSSetKit.init(player, args[1]);
+                    break;
+                case "setspawn":
+                    if (!player.hasPermission("CTS.setspawn")) {
+                        player.sendMessage(Language.getNoPermission());
+                        return false;
+                    }
+                    if (args.length == 1) {
+                        player.sendMessage(Language.getNotFullCommandSetSpawn());
+                        return false;
+                    }
+
+                    CTSSetSpawn.init(player, args[1]);
+                    break;
+                case "setsheep":
+                    if (!player.hasPermission("CTS.setsheep")) {
+                        player.sendMessage(Language.getNoPermission());
+                        return false;
+                    }
+                    if (args.length == 1) {
+                        player.sendMessage(Language.getNotFullCommandSetSheep());
+                        return false;
+                    }
+
+                    CTSSetSheep.init(player, args[1]);
+                    break;
+                case "setzone":
+                    if (!player.hasPermission("CTS.setzone")) {
+                        player.sendMessage(Language.getNoPermission());
+                        return false;
+                    }
+                    if (args.length == 1) {
+                        player.sendMessage(Language.getNotFullCommandSetZone());
+                        return false;
+                    }
+
+                    CTSSetZone.init(player, args[1]);
+                    break;
+                case "reload":
+                    if (!player.hasPermission("CTS.reload")) {
+                        player.sendMessage(Language.getNoPermission());
+                        return false;
+                    }
+
+                    FileManager.reloadAll();
+                    try {
+                        PlayersManager.saveAll();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    WorldManager.reload();
+
+                    player.sendMessage(Language.getSuccessReload());
+                    break;
+                case "stats":
+                    if (verifSetup(player)) return false;
+
+                    CTSStats.init(player);
+                    break;
+                default:
+                    notFullCommand(player);
                     return false;
-                }
-
-                switch (args[0].toLowerCase()) {
-                    case "play":
-                        if (!Settings.isCTSPlay()) {
-                            player.sendMessage(Language.getCommandDisabled());
-                            return false;
-                        }
-
-                        CTSPlay.init(player);
-                    case "leave":
-                        CTSLeave.init(player);
-                    case "kits":
-                        if (!Settings.isCTSKits()) {
-                            player.sendMessage(Language.getCommandDisabled());
-                            return false;
-                        }
-
-                        CTSKits.init(player);
-                    case "setkit":
-                        if (!player.hasPermission("CTS.setkit")) {
-                            player.sendMessage(Language.getNoPermission());
-                            return false;
-                        }
-                        if (args.length == 1) {
-                            player.sendMessage(Language.getNotFullCommandSetKit());
-                            return false;
-                        }
-
-                        CTSSetKit.init(player, args[1]);
-                    case "setspawn":
-                        if (!player.hasPermission("CTS.setspawn")) {
-                            player.sendMessage(Language.getNoPermission());
-                            return false;
-                        }
-                        if (args.length == 1) {
-                            player.sendMessage(Language.getNotFullCommandSetSpawn());
-                            return false;
-                        }
-
-                        CTSSetSpawn.init(player, args[1]);
-                    case "setsheep":
-                        if (!player.hasPermission("CTS.setsheep")) {
-                            player.sendMessage(Language.getNoPermission());
-                            return false;
-                        }
-                        if (args.length == 1) {
-                            player.sendMessage(Language.getNotFullCommandSetSheep());
-                            return false;
-                        }
-
-                        CTSSetSheep.init(player, args[1]);
-                    case "setzone":
-                        if (!player.hasPermission("CTS.setzone")) {
-                            player.sendMessage(Language.getNoPermission());
-                            return false;
-                        }
-                        if (args.length == 1) {
-                            player.sendMessage(Language.getNotFullCommandSetZone());
-                            return false;
-                        }
-
-                        CTSSetZone.init(player, args[1]);
-                    case "reload":
-                        if (!player.hasPermission("CTS.reload")) {
-                            player.sendMessage(Language.getNoPermission());
-                            return false;
-                        }
-
-                        FileManager.reloadAll();
-                        try {
-                            PlayersManager.saveAll();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        WorldManager.reload();
-
-                        player.sendMessage(Language.getSuccessReload());
-                    case "stats":
-                        CTSStats.init(player);
-                    default:
-                        if (player.hasPermission("CTS.staff"))
-                            player.sendMessage(Language.getNotFullCommandStaff());
-                        else
-                            player.sendMessage(Language.getNotFullCommandPlayer());
-                }
-            } else {
-                if (!player.hasPermission("CTS.setup")) {
-                    player.sendMessage(Language.getNoPermission());
-                    return false;
-                }
-
-                CTSSetup.init(player);
             }
         }
         return false;
+    }
+
+    private void notFullCommand(Player player) {
+        if (!Settings.isSetup()) {
+            if (!player.hasPermission("CTS.setup")) {
+                player.sendMessage(Language.getNoPermission());
+                return;
+            }
+
+            CTSSetup.init(player);
+        } else {
+            if (player.hasPermission("CTS.staff"))
+                player.sendMessage(Language.getNotFullCommandStaff());
+            else
+                player.sendMessage(Language.getNotFullCommandPlayer());
+        }
     }
 }
