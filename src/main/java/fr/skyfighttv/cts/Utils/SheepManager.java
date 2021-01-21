@@ -14,8 +14,13 @@ import org.bukkit.util.Vector;
 import java.util.HashMap;
 
 public class SheepManager {
-    private static final HashMap<World, HashMap<String, Sheep>> sheepGames = new HashMap<>();
-    private static final HashMap<Player, Integer> sheedPassengerId = new HashMap<>();
+    private static HashMap<World, HashMap<String, Sheep>> sheepGames;
+    private static HashMap<Player, Integer> sheedPassengerId;
+
+    public SheepManager() {
+        sheedPassengerId = new HashMap<>();
+        sheepGames = new HashMap<>();
+    }
 
     public static void create(World world, String sheepTeam) {
         YamlConfiguration sheepConfig = FileManager.getValues().get(Files.Sheep);
@@ -125,8 +130,9 @@ public class SheepManager {
     }
 
     public static void removeAll() {
-        for (World world : sheepGames.keySet())
-            removeWorld(world);
+        if (!sheepGames.isEmpty())
+            for (World world : sheepGames.keySet())
+                removeWorld(world);
     }
 
     public static HashMap<World, HashMap<String, Sheep>> getSheepGames() {
