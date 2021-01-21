@@ -1,5 +1,6 @@
 package fr.skyfighttv.cts.Commands.SubCommands;
 
+import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
@@ -28,5 +29,7 @@ public class CTSSetKit {
         FileManager.save(Files.Kits);
 
         player.sendMessage(Language.getSuccessSetKit());
+
+        CTS.verifSetup(player);
     }
 }

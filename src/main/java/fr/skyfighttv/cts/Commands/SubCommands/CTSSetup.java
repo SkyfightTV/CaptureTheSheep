@@ -22,16 +22,16 @@ public class CTSSetup {
         if (!Settings.isSetup()) {
             StringBuilder message = new StringBuilder();
 
-            String spawnLobby = booleanToColor(spawnConfig.contains("Lobby"));
-            String spawnBlue = booleanToColor(spawnConfig.contains("Blue"));
-            String spawnRed = booleanToColor(spawnConfig.contains("Red"));
-            String spawnWait = booleanToColor(spawnConfig.contains("Wait"));
+            String spawnLobby = booleanToColor(spawnConfig.contains("lobby"));
+            String spawnBlue = booleanToColor(spawnConfig.contains("blue"));
+            String spawnRed = booleanToColor(spawnConfig.contains("red"));
+            String spawnWait = booleanToColor(spawnConfig.contains("wait"));
 
-            String zoneBlue = booleanToColor(zoneConfig.contains("Blue"));
-            String zoneRed = booleanToColor(zoneConfig.contains("Red"));
+            String zoneBlue = booleanToColor(zoneConfig.contains("blue"));
+            String zoneRed = booleanToColor(zoneConfig.contains("red"));
 
-            String sheepBlue = booleanToColor(sheepConfig.contains("Blue"));
-            String sheepRed = booleanToColor(sheepConfig.contains("Red"));
+            String sheepBlue = booleanToColor(sheepConfig.contains("blue"));
+            String sheepRed = booleanToColor(sheepConfig.contains("red"));
 
             String kitDefault = booleanToColor(kitsConfig.contains("default"));
 
@@ -48,7 +48,8 @@ public class CTSSetup {
                     && sheepRed.equals(doneColor)
                     && kitDefault.equals(doneColor)) {
 
-                message.append("§aPlugin initialization completed.");
+                message.append("§aPlugin initialization completed.")
+                        .append("\n");
 
                 config.set("IsSetup", true);
                 FileManager.save(Files.Config);
