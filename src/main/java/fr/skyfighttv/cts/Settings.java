@@ -6,150 +6,160 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Settings {
+    private static Settings Instance;
+
     @Config(path = "IsSetup")
-    private static boolean IsSetup = false;
+    private boolean IsSetup = false;
 
     @Config(path = "DebugMode")
-    private static boolean DebugMode = false;
+    private boolean DebugMode = false;
 
     @Config(path = "ColorConsole")
-    private static boolean ColorConsole = true;
+    private boolean ColorConsole = true;
 
     @Config(path = "Worlds.Number")
-    private static int WorldsNumber = 2;
+    private int WorldsNumber = 2;
 
     @Config(path = "Worlds.Increase")
-    private static int WorldsIncrease = 2;
+    private int WorldsIncrease = 2;
 
     @Config(path = "Worlds.Title")
-    private static String WorldsTitle = "CTS-";
+    private String WorldsTitle = "CTS-";
 
     @Config(path = "Worlds.Copy")
-    private static String WorldsCopy = "world";
+    private String WorldsCopy = "world";
 
     @Config(path = "CTS.Play")
-    private static boolean CTSPlay = true;
+    private boolean CTSPlay = true;
 
     @Config(path = "CTS.Kits")
-    private static boolean CTSKits = true;
+    private boolean CTSKits = true;
 
     @Config(path = "Game.MaxPlayers")
-    private static int GameMaxPlayers = 16;
+    private int GameMaxPlayers = 16;
 
     @Config(path = "Game.MinPlayers")
-    private static int GameMinPlayers = 14;
+    private int GameMinPlayers = 14;
 
     @Config(path = "Game.Invincibility")
-    private static int GameInvincibility = 5;
+    private int GameInvincibility = 5;
 
     @Config(path = "Game.TeamSizeZone")
-    private static int GameTeamSizeZone = 5;
+    private int GameTeamSizeZone = 5;
 
     @Config(path = "Game.EndGameTime")
-    private static int GameEndGameTime = 10;
+    private int GameEndGameTime = 10;
 
     @Config(path = "Game.WaitTime")
-    private static int GameWaitTime = 30;
+    private int GameWaitTime = 30;
 
     @Config(path = "GUI.Kits.Title")
-    private static String GUIKitsTitle = "Menu des kits";
+    private String GUIKitsTitle = "Menu des kits";
 
     @Config(path = "GUI.Kits.Size")
-    private static int GUIKitsSize = 27;
+    private int GUIKitsSize = 27;
 
     @Config(path = "GUI.Teams.Title")
-    private static String GUITeamsTitle = "Choisi ta team";
+    private String GUITeamsTitle = "Choisi ta team";
 
     @Config(path = "GUI.Teams.Size")
-    private static int GUITeamsSize = 9;
+    private int GUITeamsSize = 9;
 
     @Config(path = "AutoDelete.Blocks")
-    private static List<String> AutoDeleteBlocks = new ArrayList<>();
+    private List<String> AutoDeleteBlocks = new ArrayList<>();
 
     @Config(path = "AutoDelete.Time")
-    private static int AutoDeleteTime = 10;
+    private int AutoDeleteTime = 10;
 
-    public static boolean isSetup() {
+    public Settings() {
+        Instance = this;
+    }
+
+    public static Settings getInstance() {
+        return Instance;
+    }
+
+    public boolean isSetup() {
         return IsSetup;
     }
 
-    public static boolean isDebugMode() {
+    public boolean isDebugMode() {
         return DebugMode;
     }
 
-    public static boolean isColorConsole() {
+    public boolean isColorConsole() {
         return ColorConsole;
     }
 
-    public static int getWorldsNumber() {
+    public int getWorldsNumber() {
         return WorldsNumber;
     }
 
-    public static int getWorldsIncrease() {
+    public int getWorldsIncrease() {
         return WorldsIncrease;
     }
 
-    public static String getWorldsTitle() {
+    public String getWorldsTitle() {
         return WorldsTitle;
     }
 
-    public static String getWorldsCopy() {
+    public String getWorldsCopy() {
         return WorldsCopy;
     }
 
-    public static boolean isCTSPlay() {
+    public boolean isCTSPlay() {
         return CTSPlay;
     }
 
-    public static boolean isCTSKits() {
+    public boolean isCTSKits() {
         return CTSKits;
     }
 
-    public static int getGameMaxPlayers() {
+    public int getGameMaxPlayers() {
         return GameMaxPlayers;
     }
 
-    public static int getGameMinPlayers() {
+    public int getGameMinPlayers() {
         return GameMinPlayers;
     }
 
-    public static int getGameInvincibility() {
+    public int getGameInvincibility() {
         return GameInvincibility;
     }
 
-    public static int getGameTeamSizeZone() {
+    public int getGameTeamSizeZone() {
         return GameTeamSizeZone;
     }
 
-    public static int getGameEndGameTime() {
+    public int getGameEndGameTime() {
         return GameEndGameTime;
     }
 
-    public static int getGameWaitTime() {
+    public int getGameWaitTime() {
         return GameWaitTime;
     }
 
-    public static String getGUIKitsTitle() {
+    public String getGUIKitsTitle() {
         return GUIKitsTitle;
     }
 
-    public static int getGUIKitsSize() {
+    public int getGUIKitsSize() {
         return GUIKitsSize;
     }
 
-    public static String getGUITeamsTitle() {
+    public String getGUITeamsTitle() {
         return GUITeamsTitle;
     }
 
-    public static int getGUITeamsSize() {
+    public int getGUITeamsSize() {
         return GUITeamsSize;
     }
 
-    public static List<String> getAutoDeleteBlocks() {
+    public List<String> getAutoDeleteBlocks() {
         return AutoDeleteBlocks;
     }
 
-    public static int getAutoDeleteTime() {
+    public int getAutoDeleteTime() {
         return AutoDeleteTime;
     }
 }

@@ -17,7 +17,7 @@ import java.io.IOException;
 public class PlayerJoin implements Listener {
     @EventHandler
     private void onJoin(PlayerJoinEvent event) {
-        if (Settings.isSetup()) {
+        if (Settings.getInstance().isSetup()) {
             try {
                 PlayersManager.create(event.getPlayer());
             } catch (IOException e) {

@@ -21,7 +21,7 @@ public class BlockPlace implements Listener {
     private void onBlockPlace(BlockPlaceEvent event) {
         if (GameManager.getInGamePlayers().contains(event.getPlayer())) {
             if (GameManager.getGames().contains(event.getPlayer().getWorld())) {
-                if (Settings.getAutoDeleteBlocks().contains(event.getBlock().getType().name())) {
+                if (Settings.getInstance().getAutoDeleteBlocks().contains(event.getBlock().getType().name())) {
                     blocksPlaced.add(event.getBlockPlaced());
 
                     event.getItemInHand().setAmount(64);
@@ -29,7 +29,7 @@ public class BlockPlace implements Listener {
                     Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> {
                         event.getBlockPlaced().setType(Material.AIR);
                         blocksPlaced.remove(event.getBlockPlaced());
-                    }, (Settings.getAutoDeleteTime() * 20L));
+                    }, (Settings.getInstance().getAutoDeleteTime() * 20L));
                     return;
                 }
             }

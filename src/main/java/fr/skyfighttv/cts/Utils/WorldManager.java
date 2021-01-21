@@ -23,15 +23,15 @@ public class WorldManager {
     public static void reload() {
         int createdNumber = 0;
         int number = 0;
-        for (int i = 1; i <= Settings.getWorldsNumber(); i++) {
-            String worldName = Settings.getWorldsTitle() + i;
+        for (int i = 1; i <= Settings.getInstance().getWorldsNumber(); i++) {
+            String worldName = Settings.getInstance().getWorldsTitle() + i;
             File world = new File(worldName);
 
             if (!world.exists()) {
                 WorldCreator worldCreator = new WorldCreator(worldName);
 
                 try {
-                    worldCreator.copy(Objects.requireNonNull(Bukkit.getWorld(Settings.getWorldsCopy())));
+                    worldCreator.copy(Objects.requireNonNull(Bukkit.getWorld(Settings.getInstance().getWorldsCopy())));
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }

@@ -75,7 +75,7 @@ public class SheepManager {
                 Location zoneLoc = (Location) zoneConfig.get(zoneObjective);
                 assert zoneLoc != null;
 
-                int size = Settings.getGUITeamsSize();
+                int size = Settings.getInstance().getGUITeamsSize();
 
                 int x = zoneLoc.getBlockX() + size;
                 int _x = zoneLoc.getBlockX() - size;

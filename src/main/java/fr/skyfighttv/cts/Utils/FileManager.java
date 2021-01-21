@@ -14,6 +14,7 @@ public class FileManager {
 
     public FileManager() throws IOException {
         values = new HashMap<>();
+        new Settings();
 
         int number = 0;
         int createdNumber = 0;

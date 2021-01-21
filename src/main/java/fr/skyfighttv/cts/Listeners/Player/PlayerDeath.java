@@ -31,7 +31,7 @@ public class PlayerDeath implements Listener {
 
             GameManager.getInvinciblePlayers().add(player);
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> GameManager.getInvinciblePlayers().remove(player), (Settings.getGameInvincibility() * 20L));
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> GameManager.getInvinciblePlayers().remove(player), (Settings.getInstance().getGameInvincibility() * 20L));
         }
     }
 }

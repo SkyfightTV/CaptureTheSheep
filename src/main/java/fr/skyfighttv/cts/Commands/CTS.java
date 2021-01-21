@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class CTS implements CommandExecutor {
     public static boolean verifSetup(Player player) {
-        if (!Settings.isSetup()) {
+        if (!Settings.getInstance().isSetup()) {
             if (!player.hasPermission("CTS.setup")) {
                 player.sendMessage(Language.getNoPermission());
                 return true;
@@ -38,7 +38,7 @@ public class CTS implements CommandExecutor {
 
             switch (args[0].toLowerCase()) {
                 case "play":
-                    if (!Settings.isCTSPlay()) {
+                    if (!Settings.getInstance().isCTSPlay()) {
                         player.sendMessage(Language.getCommandDisabled());
                         return false;
                     }
@@ -53,7 +53,7 @@ public class CTS implements CommandExecutor {
                     CTSLeave.init(player);
                     break;
                 case "kits":
-                    if (!Settings.isCTSKits()) {
+                    if (!Settings.getInstance().isCTSKits()) {
                         player.sendMessage(Language.getCommandDisabled());
                         return false;
                     }
@@ -140,7 +140,7 @@ public class CTS implements CommandExecutor {
     }
 
     private void notFullCommand(Player player) {
-        if (!Settings.isSetup()) {
+        if (!Settings.getInstance().isSetup()) {
             if (!player.hasPermission("CTS.setup")) {
                 player.sendMessage(Language.getNoPermission());
                 return;

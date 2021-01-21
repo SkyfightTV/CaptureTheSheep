@@ -48,7 +48,7 @@ public class GameManager {
         //YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
         for (World world : numberPlayers.keySet()) {
-            if (numberPlayers.get(world).size() < Settings.getGameMaxPlayers()
+            if (numberPlayers.get(world).size() < Settings.getInstance().getGameMaxPlayers()
                     && !games.contains(world)) {
                 YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
 
@@ -76,10 +76,10 @@ public class GameManager {
                         return;
                     }
 
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(numberPlayers.get(world).size() + " / " + Settings.getGameMaxPlayers()));
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(numberPlayers.get(world).size() + " / " + Settings.getInstance().getGameMaxPlayers()));
                 }, 0, 2));
 
-                if (numberPlayers.get(world).size() >= Settings.getGameMaxPlayers() - (Settings.getGameMaxPlayers() - Settings.getGameMinPlayers()))
+                if (numberPlayers.get(world).size() >= Settings.getInstance().getGameMaxPlayers() - (Settings.getInstance().getGameMaxPlayers() - Settings.getInstance().getGameMinPlayers()))
                     startGame(world);
 
                 return true;
@@ -92,9 +92,9 @@ public class GameManager {
         YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
         YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
-        AtomicInteger number = new AtomicInteger(Settings.getGameWaitTime());
+        AtomicInteger number = new AtomicInteger(Settings.getInstance().getGameWaitTime());
         startGameId.put(world, Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), () -> {
-            if (numberPlayers.get(world).size() < Settings.getGameMaxPlayers() - (Settings.getGameMaxPlayers() - Settings.getGameMinPlayers())) {
+            if (numberPlayers.get(world).size() < Settings.getInstance().getGameMaxPlayers() - (Settings.getInstance().getGameMaxPlayers() - Settings.getInstance().getGameMinPlayers())) {
                 Bukkit.getScheduler().cancelTask(startGameId.get(world));
                 startGameId.remove(world);
 
@@ -116,7 +116,7 @@ public class GameManager {
                 games.add(world);
 
                 if (WorldManager.getWorlds().size() == games.size()) {
-                    config.set("Worlds.Number", Settings.getWorldsNumber() + Settings.getWorldsIncrease());
+                    config.set("Worlds.Number", Settings.getInstance().getWorldsNumber() + Settings.getInstance().getWorldsIncrease());
                     FileManager.save(Files.Config);
                 }
 
@@ -154,7 +154,7 @@ public class GameManager {
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
             for (Player player : numberPlayers.get(world))
                 CTSLeave.leaveGame(player, world);
-        }, Settings.getGameEndGameTime());
+        }, Settings.getInstance().getGameEndGameTime());
     }
 
     public static void givePlayerKit(Player player) {

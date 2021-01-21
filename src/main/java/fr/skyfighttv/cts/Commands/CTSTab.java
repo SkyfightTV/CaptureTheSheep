@@ -68,13 +68,13 @@ public class CTSTab implements TabCompleter {
     }
 
     private List<String> setupTab(String[] args, List<String> tab) {
-        if (Settings.isSetup()) {
+        if (Settings.getInstance().isSetup()) {
             tab.addAll(Arrays.asList("Stats", "Leave"));
 
-            if (Settings.isCTSPlay())
+            if (Settings.getInstance().isCTSPlay())
                 tab.add("Play");
 
-            if (Settings.isCTSKits())
+            if (Settings.getInstance().isCTSKits())
                 tab.add("Kits");
         }
 

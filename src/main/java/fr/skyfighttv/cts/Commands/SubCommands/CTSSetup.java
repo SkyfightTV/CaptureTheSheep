@@ -19,7 +19,7 @@ public class CTSSetup {
         YamlConfiguration kitsConfig = FileManager.getValues().get(Files.Kits);
         YamlConfiguration zoneConfig = FileManager.getValues().get(Files.Zone);
 
-        if (!Settings.isSetup()) {
+        if (!Settings.getInstance().isSetup()) {
             StringBuilder message = new StringBuilder();
 
             String spawnLobby = booleanToColor(spawnConfig.contains("lobby"));

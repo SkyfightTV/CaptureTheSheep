@@ -19,7 +19,7 @@ public class CTSTeams {
         if (GameManager.getInGamePlayers().contains(player)) {
             YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
-            CInventory cInventory = new CInventory(Settings.getGUITeamsSize(), Settings.getGUITeamsTitle());
+            CInventory cInventory = new CInventory(Settings.getInstance().getGUITeamsSize(), Settings.getInstance().getGUITeamsTitle());
 
             CItem blueTeam = new CItem(new ItemCreator(Material.getMaterial(config.getString("GUI.Teams.Items.BlueTeam.Material")), 0)
                     .setName(config.getString("GUI.Teams.Items.BlueTeam.Title"))
