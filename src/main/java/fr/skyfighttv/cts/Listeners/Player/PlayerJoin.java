@@ -33,11 +33,7 @@ public class PlayerJoin implements Listener {
         } else {
             if (!event.getPlayer().hasPermission("CTS.setup")) return;
 
-            try {
-                CTSSetup.init(event.getPlayer());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            CTSSetup.init(event.getPlayer());
         }
     }
 }
