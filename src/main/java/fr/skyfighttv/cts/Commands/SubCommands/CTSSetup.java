@@ -51,6 +51,7 @@ public class CTSSetup {
                 message.append("§aPlugin initialization completed.")
                         .append("\n");
 
+                System.out.println(Settings.getInstance().isSetup());
                 config.set("IsSetup", true);
                 FileManager.save(Files.Config);
 

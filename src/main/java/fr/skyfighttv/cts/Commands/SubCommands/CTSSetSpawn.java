@@ -17,11 +17,11 @@ public class CTSSetSpawn {
             spawnConfig.set(spawn.toLowerCase(), player.getLocation());
             FileManager.save(Files.Spawn);
 
-            player.sendMessage(Language.getSuccessSetSpawn());
+            player.sendMessage(Language.getInstance().getSuccessSetSpawn());
 
             CTS.verifSetup(player);
         } else {
-            player.sendMessage(Language.getFailedSetSpawn());
+            player.sendMessage(Language.getInstance().getFailedSetSpawn());
         }
     }
 }

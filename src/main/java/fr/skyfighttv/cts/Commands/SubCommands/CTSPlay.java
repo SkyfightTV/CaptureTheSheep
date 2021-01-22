@@ -8,10 +8,10 @@ public class CTSPlay {
     public static void init(Player player) {
         if (!GameManager.getInGamePlayers().contains(player))
             if (GameManager.joinGame(player))
-                player.sendMessage(Language.getJoinGame());
+                player.sendMessage(Language.getInstance().getJoinGame());
             else
-                player.sendMessage(Language.getAllGamesFull());
+                player.sendMessage(Language.getInstance().getAllGamesFull());
         else
-            player.sendMessage(Language.getAlreadyOnGame());
+            player.sendMessage(Language.getInstance().getAlreadyOnGame());
     }
 }

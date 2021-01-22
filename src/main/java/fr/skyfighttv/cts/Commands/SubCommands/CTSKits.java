@@ -34,7 +34,7 @@ public class CTSKits {
                             e.printStackTrace();
                         }
 
-                        player.sendMessage(Language.getSuccessSelectKit());
+                        player.sendMessage(Language.getInstance().getSuccessSelectKit());
 
                         inventory.close(player);
                     }

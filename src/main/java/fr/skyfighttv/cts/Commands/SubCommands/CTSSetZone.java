@@ -17,11 +17,11 @@ public class CTSSetZone {
             zoneConfig.set(team.toLowerCase(), player.getLocation().getBlock().getLocation());
             FileManager.save(Files.Zone);
 
-            player.sendMessage(Language.getSuccessSetZone());
+            player.sendMessage(Language.getInstance().getSuccessSetZone());
 
             CTS.verifSetup(player);
         } else {
-            player.sendMessage(Language.getFailedSetZone());
+            player.sendMessage(Language.getInstance().getFailedSetZone());
         }
     }
 }

@@ -17,11 +17,11 @@ public class CTSSetSheep {
             sheepConfig.set(sheep.toLowerCase(), player.getLocation().getBlock().getLocation());
             FileManager.save(Files.Sheep);
 
-            player.sendMessage(Language.getSuccessSetSheep());
+            player.sendMessage(Language.getInstance().getSuccessSetSheep());
 
             CTS.verifSetup(player);
         } else {
-            player.sendMessage(Language.getFailedSetSheep());
+            player.sendMessage(Language.getInstance().getFailedSetSheep());
         }
     }
 }

@@ -8,7 +8,7 @@ public class CTSStats {
     public static void init(Player player) {
         StringBuilder message = new StringBuilder();
 
-        for (String msg : Language.getStatsMessage()) {
+        for (String msg : Language.getInstance().getStatsMessage()) {
             message.append(msg
                     .replaceAll("%death%", PlayersManager.getDeaths(player) + "")
                     .replaceAll("%kill%", PlayersManager.getKills(player) + "")

@@ -19,7 +19,7 @@ public class CTSLeave {
                 && WorldManager.getWorlds().contains(player.getWorld())) {
             leaveGame(player, player.getWorld());
         } else {
-            player.sendMessage(Language.getCantLeave());
+            player.sendMessage(Language.getInstance().getCantLeave());
         }
     }
 
