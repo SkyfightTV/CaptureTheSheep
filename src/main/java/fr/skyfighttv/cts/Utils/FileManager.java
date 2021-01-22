@@ -15,6 +15,7 @@ public class FileManager {
     public FileManager() throws IOException {
         values = new HashMap<>();
         new Settings();
+        new Language();
 
         int number = 0;
         int createdNumber = 0;
@@ -38,7 +39,7 @@ public class FileManager {
         loadClass();
     }
 
-    private static void loadClass() {
+    public static void loadClass() {
         ConfigAnnotation.loadClass(values.get(Files.Config), Settings.class);
         ConfigAnnotation.loadClass(values.get(Files.Lang), Language.class);
     }

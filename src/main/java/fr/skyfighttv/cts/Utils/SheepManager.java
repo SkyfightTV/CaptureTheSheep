@@ -1,5 +1,6 @@
 package fr.skyfighttv.cts.Utils;
 
+import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Settings;
 import org.bukkit.Bukkit;
@@ -108,11 +109,14 @@ public class SheepManager {
                             && sheep.getLocation().getBlockZ() > _z) {
                         sheep.remove();
 
+                        for (Player players : GameManager.getNumberPlayers().get(world))
+                            players.sendMessage(Language.getInstance().getPlayerScore()
+                                    .replaceAll("%player%", player.getName()));
+
                         GameManager.endGame(world);
                     }
 
-                    Vector vector = player.getLocation().getDirection();
-                    vector.setY(0);
+                    Vector vector = player.getLocation().getDirection().multiply(2);
 
                     sheep.getLocation().add(vector.toLocation(world));
                 }, 0, 10));

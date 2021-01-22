@@ -99,7 +99,7 @@ public class GameManager {
                 startGameId.remove(world);
 
                 for (Player player : numberPlayers.get(world))
-                    player.sendMessage(Language.getFailedGameStart());
+                    player.sendMessage(Language.getInstance().getFailedGameStart());
             }
 
             if (langConfig.contains("WaitTitle." + number.get())
