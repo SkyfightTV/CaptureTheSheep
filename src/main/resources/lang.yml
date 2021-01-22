@@ -25,8 +25,6 @@ NoPermission: "Tu n'as pas la permission d'éxecuter cette commande !"
 AlreadyOnGame: "Tu es déjà en jeux !"
 JoinGame: "Tu viens de rejoindre une partie"
 AllGamesFull: "Toutes les parties sont pleines !"
-#Message sent when no kits have been configured
-NoneKits: "Il n'y a aucun kits !"
 #Message sent when the command send by the player is disable
 CommandDisabled: "Cette commande est désactivé !"
 
@@ -45,7 +43,6 @@ SuccessSetSpawn: "Tu viens d'ajouter un spawn !"
 SuccessSetSheep: "Tu viens d'ajouter un sheep !"
 SuccessSetKit: "Tu viens d'ajouter un kit !"
 SuccessSetZone: "Tu viens de set une zone"
-SuccessSetLobby: "Tu viens de set le nouveau lobby !"
 SuccessSelectKit: "Tu viens avec succès de sélectionner ton kit !"
 SuccessReload: "Tu viens de reload le plugin !"
 
