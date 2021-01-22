@@ -17,7 +17,7 @@ public class CTS implements CommandExecutor {
     public static boolean verifSetup(Player player) {
         if (!Settings.getInstance().isSetup()) {
             if (!player.hasPermission("CTS.setup")) {
-                player.sendMessage(Language.getNoPermission());
+                player.sendMessage(Language.getInstance().getNoPermission());
                 return true;
             }
 
@@ -39,7 +39,7 @@ public class CTS implements CommandExecutor {
             switch (args[0].toLowerCase()) {
                 case "play":
                     if (!Settings.getInstance().isCTSPlay()) {
-                        player.sendMessage(Language.getCommandDisabled());
+                        player.sendMessage(Language.getInstance().getCommandDisabled());
                         return false;
                     }
 
@@ -54,7 +54,7 @@ public class CTS implements CommandExecutor {
                     break;
                 case "kits":
                     if (!Settings.getInstance().isCTSKits()) {
-                        player.sendMessage(Language.getCommandDisabled());
+                        player.sendMessage(Language.getInstance().getCommandDisabled());
                         return false;
                     }
 
@@ -64,11 +64,11 @@ public class CTS implements CommandExecutor {
                     break;
                 case "setkit":
                     if (!player.hasPermission("CTS.setkit")) {
-                        player.sendMessage(Language.getNoPermission());
+                        player.sendMessage(Language.getInstance().getNoPermission());
                         return false;
                     }
                     if (args.length == 1) {
-                        player.sendMessage(Language.getNotFullCommandSetKit());
+                        player.sendMessage(Language.getInstance().getNotFullCommandSetKit());
                         return false;
                     }
 
@@ -76,11 +76,11 @@ public class CTS implements CommandExecutor {
                     break;
                 case "setspawn":
                     if (!player.hasPermission("CTS.setspawn")) {
-                        player.sendMessage(Language.getNoPermission());
+                        player.sendMessage(Language.getInstance().getNoPermission());
                         return false;
                     }
                     if (args.length == 1) {
-                        player.sendMessage(Language.getNotFullCommandSetSpawn());
+                        player.sendMessage(Language.getInstance().getNotFullCommandSetSpawn());
                         return false;
                     }
 
@@ -88,11 +88,11 @@ public class CTS implements CommandExecutor {
                     break;
                 case "setsheep":
                     if (!player.hasPermission("CTS.setsheep")) {
-                        player.sendMessage(Language.getNoPermission());
+                        player.sendMessage(Language.getInstance().getNoPermission());
                         return false;
                     }
                     if (args.length == 1) {
-                        player.sendMessage(Language.getNotFullCommandSetSheep());
+                        player.sendMessage(Language.getInstance().getNotFullCommandSetSheep());
                         return false;
                     }
 
@@ -100,11 +100,11 @@ public class CTS implements CommandExecutor {
                     break;
                 case "setzone":
                     if (!player.hasPermission("CTS.setzone")) {
-                        player.sendMessage(Language.getNoPermission());
+                        player.sendMessage(Language.getInstance().getNoPermission());
                         return false;
                     }
                     if (args.length == 1) {
-                        player.sendMessage(Language.getNotFullCommandSetZone());
+                        player.sendMessage(Language.getInstance().getNotFullCommandSetZone());
                         return false;
                     }
 
@@ -112,7 +112,7 @@ public class CTS implements CommandExecutor {
                     break;
                 case "reload":
                     if (!player.hasPermission("CTS.reload")) {
-                        player.sendMessage(Language.getNoPermission());
+                        player.sendMessage(Language.getInstance().getNoPermission());
                         return false;
                     }
 
@@ -124,7 +124,7 @@ public class CTS implements CommandExecutor {
                     }
                     WorldManager.reload();
 
-                    player.sendMessage(Language.getSuccessReload());
+                    player.sendMessage(Language.getInstance().getSuccessReload());
                     break;
                 case "stats":
                     if (verifSetup(player)) return false;
@@ -142,16 +142,16 @@ public class CTS implements CommandExecutor {
     private void notFullCommand(Player player) {
         if (!Settings.getInstance().isSetup()) {
             if (!player.hasPermission("CTS.setup")) {
-                player.sendMessage(Language.getNoPermission());
+                player.sendMessage(Language.getInstance().getNoPermission());
                 return;
             }
 
             CTSSetup.init(player);
         } else {
             if (player.hasPermission("CTS.staff"))
-                player.sendMessage(Language.getNotFullCommandStaff());
+                player.sendMessage(Language.getInstance().getNotFullCommandStaff());
             else
-                player.sendMessage(Language.getNotFullCommandPlayer());
+                player.sendMessage(Language.getInstance().getNotFullCommandPlayer());
         }
     }
 }
