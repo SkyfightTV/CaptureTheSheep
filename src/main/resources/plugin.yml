@@ -1,6 +1,7 @@
 name: CaptureTheSheep
 main: fr.skyfighttv.cts.Main
 version: 0.1
+api-version: 1.13
 commands:
   CaptureTheSheep:
     aliases:
