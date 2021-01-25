@@ -17,13 +17,13 @@ import java.io.IOException;
 public class PlayerJoin implements Listener {
     @EventHandler
     private void onJoin(PlayerJoinEvent event) {
-        if (Settings.getInstance().isSetup()) {
-            try {
-                PlayersManager.create(event.getPlayer());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            PlayersManager.create(event.getPlayer());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        if (Settings.getInstance().isSetup()) {
             YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
 
             if (spawnConfig.contains("Lobby"))
