@@ -1,5 +1,6 @@
 package fr.skyfighttv.cts.Utils;
 
+import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Settings;
 import org.bukkit.Bukkit;
@@ -9,6 +10,8 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;
@@ -30,11 +33,10 @@ public class SheepManager {
         try {
             Sheep sheep = world.spawn((Location) sheepConfig.get(sheepTeam), Sheep.class);
             sheep.setAI(false);
-            sheep.setAdult();
             sheep.setCollidable(false);
             sheep.setInvulnerable(true);
             sheep.setSheared(false);
-            sheep.setGravity(false);
+            sheep.setGravity(true);
             sheep.setBreed(false);
             sheep.setColor(DyeColor.valueOf(sheepTeam.toUpperCase()));
 
@@ -53,17 +55,17 @@ public class SheepManager {
             String sheepTeam;
             String zoneObjective;
 
-            if (sheepGames.get(world).get("Blue").equals(sheep)) {
-                sheepTeam = "Blue";
-                zoneObjective = "Red";
-            } else if (sheepGames.get(world).get("Red").equals(sheep)) {
-                sheepTeam = "Red";
-                zoneObjective = "Blue";
+            if (sheepGames.get(world).get("blue").equals(sheep)) {
+                sheepTeam = "blue";
+                zoneObjective = "red";
+            } else if (sheepGames.get(world).get("red").equals(sheep)) {
+                sheepTeam = "red";
+                zoneObjective = "blue";
             } else return;
 
-            if ((sheepTeam.equals("Blue")
+            if ((sheepTeam.equals("blue")
                     && GameManager.getBlueTeam().get(world).contains(player))
-                    || (sheepTeam.equals("Red")
+                    || (sheepTeam.equals("red")
                     && GameManager.getRedTeam().get(world).contains(player)))
                 return;
 
@@ -83,6 +85,15 @@ public class SheepManager {
                 int _y = zoneLoc.getBlockY() - size;
                 int z = zoneLoc.getBlockZ() + size;
                 int _z = zoneLoc.getBlockZ() - size;
+
+                Sheep targetSheep = world.spawn(sheep.getLocation(), Sheep.class);
+                targetSheep.setInvulnerable(true);
+                targetSheep.setGravity(false);
+                targetSheep.setAI(false);
+                targetSheep.setBreed(false);
+                targetSheep.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE , 255, false, false));
+
+                sheep.setTarget(targetSheep);
 
                 sheedPassengerId.put(player, Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), () -> {
                     if (sheep.getPassenger() == null
@@ -108,13 +119,14 @@ public class SheepManager {
                             && sheep.getLocation().getBlockZ() > _z) {
                         sheep.remove();
 
+                        for (Player players : GameManager.getNumberPlayers().get(world))
+                            players.sendMessage(Language.getInstance().getPlayerScore()
+                                    .replaceAll("%player%", player.getName()));
+
                         GameManager.endGame(world);
                     }
 
-                    Vector vector = player.getLocation().getDirection();
-                    vector.setY(0);
-
-                    sheep.getLocation().add(vector.toLocation(world));
+                    targetSheep.teleport(player.getTargetBlock(null, 3).getLocation());
                 }, 0, 10));
             }
         }

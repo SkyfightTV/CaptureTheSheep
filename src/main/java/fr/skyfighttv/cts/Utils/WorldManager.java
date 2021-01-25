@@ -18,6 +18,8 @@ public class WorldManager {
         worlds = new ArrayList<>();
 
         reload();
+
+        worlds.removeIf(Objects::isNull);
     }
 
     public static void reload() {

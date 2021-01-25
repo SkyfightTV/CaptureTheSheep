@@ -39,15 +39,15 @@ public class GameManager {
         blueTeam = new HashMap<>();
         games = new HashSet<>();
 
-        for (World world : WorldManager.getWorlds()) {
+        for (World world : WorldManager.getWorlds())
             numberPlayers.put(world, new HashSet<>());
-        }
     }
 
     public static boolean joinGame(Player player) {
-        //YamlConfiguration config = FileManager.getValues().get(Files.Config);
+        List<World> worldList = new ArrayList<>(numberPlayers.keySet());
+        Collections.reverse(worldList);
 
-        for (World world : numberPlayers.keySet()) {
+        for (World world : worldList) {
             if (numberPlayers.get(world).size() < Settings.getInstance().getGameMaxPlayers()
                     && !games.contains(world)) {
                 YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
@@ -63,14 +63,19 @@ public class GameManager {
                 inGamePlayers.add(player);
 
                 Location waitLoc = new Location(world
-                        , ((Location) spawnConfig.get("Wait")).getX()
-                        , ((Location) spawnConfig.get("Wait")).getY()
-                        , ((Location) spawnConfig.get("Wait")).getZ());
+                        , ((Location) spawnConfig.get("wait")).getX()
+                        , ((Location) spawnConfig.get("wait")).getY()
+                        , ((Location) spawnConfig.get("wait")).getZ());
 
-                player.teleport(waitLoc);
+                try {
+                    player.teleport(waitLoc);
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
 
                 actionBadId.put(player, Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), () -> {
-                    if (games.contains(world)) {
+                    if (games.contains(world)
+                            || !world.equals(player.getWorld())) {
                         Bukkit.getScheduler().cancelTask(actionBadId.get(player));
                         actionBadId.remove(player);
                         return;
@@ -79,7 +84,10 @@ public class GameManager {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(numberPlayers.get(world).size() + " / " + Settings.getInstance().getGameMaxPlayers()));
                 }, 0, 2));
 
-                if (numberPlayers.get(world).size() >= Settings.getInstance().getGameMaxPlayers() - (Settings.getInstance().getGameMaxPlayers() - Settings.getInstance().getGameMinPlayers()))
+                if (numberPlayers.get(world).size()
+                        >= Settings.getInstance().getGameMaxPlayers()
+                        - (Settings.getInstance().getGameMaxPlayers()
+                        - Settings.getInstance().getGameMinPlayers()))
                     startGame(world);
 
                 return true;
@@ -99,7 +107,7 @@ public class GameManager {
                 startGameId.remove(world);
 
                 for (Player player : numberPlayers.get(world))
-                    player.sendMessage(Language.getFailedGameStart());
+                    player.sendMessage(Language.getInstance().getFailedGameStart());
             }
 
             if (langConfig.contains("WaitTitle." + number.get())
@@ -120,8 +128,8 @@ public class GameManager {
                     FileManager.save(Files.Config);
                 }
 
-                SheepManager.create(world, "Blue");
-                SheepManager.create(world, "Red");
+                SheepManager.create(world, "blue");
+                SheepManager.create(world, "red");
 
                 blueTeam.putIfAbsent(world, new HashSet<>());
                 redTeam.putIfAbsent(world, new HashSet<>());
@@ -180,27 +188,24 @@ public class GameManager {
 
         if (blueTeam.get(world).contains(player)) {
             Location blueLoc = new Location(world
-                    , ((Location) spawnConfig.get("Blue")).getX()
-                    , ((Location) spawnConfig.get("Blue")).getY()
-                    , ((Location) spawnConfig.get("Blue")).getZ());
+                    , ((Location) spawnConfig.get("blue")).getX()
+                    , ((Location) spawnConfig.get("blue")).getY()
+                    , ((Location) spawnConfig.get("blue")).getZ());
 
             player.teleport(blueLoc);
         } else {
             Location redLoc = new Location(world
-                    , ((Location) spawnConfig.get("Red")).getX()
-                    , ((Location) spawnConfig.get("Red")).getY()
-                    , ((Location) spawnConfig.get("Red")).getZ());
+                    , ((Location) spawnConfig.get("red")).getX()
+                    , ((Location) spawnConfig.get("red")).getY()
+                    , ((Location) spawnConfig.get("red")).getZ());
 
             player.teleport(redLoc);
         }
     }
 
     public static void stopGame(World world) {
-        for (Player player : world.getPlayers())
-            CTSLeave.leaveGame(player, world);
-
         games.remove(world);
-        numberPlayers.remove(world);
+        numberPlayers.put(world, new HashSet<>());
         redTeam.remove(world);
         blueTeam.remove(world);
 
