@@ -27,7 +27,9 @@ public class PlayerInteract implements Listener {
             YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
             for (String items : config.getConfigurationSection("LobbyItems").getKeys(false)) {
-                if (event.getItem().getItemMeta().getLore().equals(config.getStringList("LobbyItems." + items + ".Lore"))
+                if (((config.getStringList("LobbyItems." + items + ".Lore").isEmpty()
+                        && !event.getItem().getItemMeta().hasLore())
+                        || event.getItem().getItemMeta().getLore().equals(config.getStringList("LobbyItems." + items + ".Lore")))
                         && event.getItem().getItemMeta().getDisplayName().equals(config.getString("LobbyItems." + items + ".Title"))) {
                     Bukkit.dispatchCommand(event.getPlayer(), config.getString("LobbyItems." + items + ".Command"));
                 }
