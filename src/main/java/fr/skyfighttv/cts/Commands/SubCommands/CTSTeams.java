@@ -33,8 +33,8 @@ public class CTSTeams {
                     teamPlayers.add(player);
                     GameManager.getBlueTeam().put(player.getWorld(), teamPlayers);
 
-                    player.sendMessage(Language.getSuccessChooseTeam()
-                            .replaceAll("%team%", Language.getTeamsNameBlue()));
+                    player.sendMessage(Language.getInstance().getSuccessChooseTeam()
+                            .replaceAll("%team%", Language.getInstance().getTeamsNameBlue()));
                 }
             });
             cInventory.addElement(blueTeam);
@@ -51,8 +51,8 @@ public class CTSTeams {
                     teamPlayers.add(player);
                     GameManager.getRedTeam().put(player.getWorld(), teamPlayers);
 
-                    player.sendMessage(Language.getSuccessChooseTeam()
-                            .replaceAll("%team%", Language.getTeamsNameRed()));
+                    player.sendMessage(Language.getInstance().getSuccessChooseTeam()
+                            .replaceAll("%team%", Language.getInstance().getTeamsNameRed()));
                 }
             });
             cInventory.addElement(redTeam);

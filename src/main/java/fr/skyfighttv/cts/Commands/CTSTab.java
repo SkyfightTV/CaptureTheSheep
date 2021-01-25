@@ -63,6 +63,8 @@ public class CTSTab implements TabCompleter {
             return a(args, "Lobby", "Blue", "Red", "Wait");
         } else if (args[0].equalsIgnoreCase("setSheep")) {
             return a(args, "Blue", "Red");
+        } else if (args[0].equalsIgnoreCase("setZone")) {
+            return a(args, "Blue", "Red");
         }
         return new ArrayList<>();
     }

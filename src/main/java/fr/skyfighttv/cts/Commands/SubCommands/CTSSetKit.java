@@ -28,7 +28,7 @@ public class CTSSetKit {
 
         FileManager.save(Files.Kits);
 
-        player.sendMessage(Language.getSuccessSetKit());
+        player.sendMessage(Language.getInstance().getSuccessSetKit());
 
         CTS.verifSetup(player);
     }

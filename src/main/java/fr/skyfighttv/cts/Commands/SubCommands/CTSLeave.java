@@ -19,7 +19,7 @@ public class CTSLeave {
                 && WorldManager.getWorlds().contains(player.getWorld())) {
             leaveGame(player, player.getWorld());
         } else {
-            player.sendMessage(Language.getCantLeave());
+            player.sendMessage(Language.getInstance().getCantLeave());
         }
     }
 
@@ -33,8 +33,8 @@ public class CTSLeave {
         Main.setLobbyInventory(player);
         GameManager.getInGamePlayers().remove(player);
 
-        if (spawnConfig.contains("Lobby")) {
-            player.teleport((Location) spawnConfig.get("Lobby"));
+        if (spawnConfig.contains("lobby")) {
+            player.teleport((Location) spawnConfig.get("lobby"));
         }
 
         if (GameManager.getNumberPlayers().get(world).size() == 0)
