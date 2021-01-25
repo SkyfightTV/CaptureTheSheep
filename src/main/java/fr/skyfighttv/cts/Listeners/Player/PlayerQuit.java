@@ -15,9 +15,12 @@ public class PlayerQuit implements Listener {
 
         GameManager.getInGamePlayers().remove(player);
 
-        GameManager.getNumberPlayers().get(event.getPlayer().getWorld()).remove(player);
-        GameManager.getRedTeam().get(event.getPlayer().getWorld()).remove(player);
-        GameManager.getBlueTeam().get(event.getPlayer().getWorld()).remove(player);
+        if (GameManager.getNumberPlayers().containsKey(event.getPlayer().getWorld()))
+            GameManager.getNumberPlayers().get(event.getPlayer().getWorld()).remove(player);
+        if (GameManager.getRedTeam().containsKey(event.getPlayer().getWorld()))
+            GameManager.getRedTeam().get(event.getPlayer().getWorld()).remove(player);
+        if (GameManager.getBlueTeam().containsKey(event.getPlayer().getWorld()))
+            GameManager.getBlueTeam().get(event.getPlayer().getWorld()).remove(player);
 
         player.getInventory().clear();
         player.getInventory().setArmorContents(new ItemStack[0]);
