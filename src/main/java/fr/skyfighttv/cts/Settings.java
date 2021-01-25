@@ -9,7 +9,7 @@ public class Settings {
     private static Settings Instance;
 
     @Config(path = "IsSetup")
-    private boolean IsSetup = false;
+    private boolean IsSetup = true;
 
     @Config(path = "DebugMode")
     private boolean DebugMode = false;
