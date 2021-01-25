@@ -4,6 +4,8 @@ import fr.ChadOW.cinventory.CUtils;
 import fr.ChadOW.cinventory.citem.ItemCreator;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
+import fr.skyfighttv.cts.Listeners.Block.BlockBreak;
+import fr.skyfighttv.cts.Listeners.Block.BlockPlace;
 import fr.skyfighttv.cts.Listeners.Entity.EntityDamage;
 import fr.skyfighttv.cts.Listeners.Entity.EntityExplode;
 import fr.skyfighttv.cts.Listeners.Entity.EntitySpawn;
@@ -43,6 +45,8 @@ public class Main extends JavaPlugin {
     private static Main Instance;
 
     private final List<Listener> listeners = new ArrayList<>(Arrays.asList(
+            new BlockBreak(),
+            new BlockPlace(),
             new EntityDamage(),
             new EntityExplode(),
             new EntitySpawn(),
