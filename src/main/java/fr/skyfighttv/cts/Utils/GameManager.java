@@ -98,7 +98,6 @@ public class GameManager {
 
     public static void startGame(World world) {
         YamlConfiguration langConfig = FileManager.getValues().get(Files.Lang);
-        YamlConfiguration config = FileManager.getValues().get(Files.Config);
 
         AtomicInteger number = new AtomicInteger(Settings.getInstance().getGameWaitTime());
         startGameId.put(world, Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), () -> {
@@ -124,8 +123,8 @@ public class GameManager {
                 games.add(world);
 
                 if (WorldManager.getWorlds().size() == games.size()) {
-                    config.set("Worlds.Number", Settings.getInstance().getWorldsNumber() + Settings.getInstance().getWorldsIncrease());
-                    FileManager.save(Files.Config);
+                    TempManager.getConfiguration().set("Worlds.Number", TempManager.getWorldsNumber() + Settings.getInstance().getWorldsIncrease());
+                    TempManager.save();
                 }
 
                 SheepManager.create(world, "blue");

@@ -37,6 +37,8 @@ public class FileManager {
         System.out.println(Main.ANSI_GREEN + createdNumber + " files created and " + number + " files loaded." + Main.ANSI_RESET);
 
         loadClass();
+
+        new TempManager();
     }
 
     public static void loadClass() {

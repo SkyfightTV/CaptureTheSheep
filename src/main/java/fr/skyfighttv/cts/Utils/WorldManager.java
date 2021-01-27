@@ -25,7 +25,7 @@ public class WorldManager {
     public static void reload() {
         int createdNumber = 0;
         int number = 0;
-        for (int i = 1; i <= Settings.getInstance().getWorldsNumber(); i++) {
+        for (int i = 1; i <= TempManager.getWorldsNumber(); i++) {
             String worldName = Settings.getInstance().getWorldsTitle() + i;
             File world = new File(worldName);
 
