@@ -6,6 +6,7 @@ import fr.skyfighttv.cts.Settings;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
 import fr.skyfighttv.cts.Utils.PlayersManager;
+import fr.skyfighttv.cts.Utils.TempManager;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -23,7 +24,7 @@ public class PlayerJoin implements Listener {
             e.printStackTrace();
         }
 
-        if (Settings.getInstance().isSetup()) {
+        if (TempManager.isSetup()) {
             YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
 
             if (spawnConfig.contains("Lobby"))
