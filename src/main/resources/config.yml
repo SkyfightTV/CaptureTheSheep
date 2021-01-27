@@ -12,8 +12,6 @@
 #It works between spigot version 1.7 and 1.16
 #This plugin can't be reloaded
 
-IsSetup: false
-
 #DebugMode sends a message to the console each time an event is called
 #/!\ The debugmode can spam the console /!\
 DebugMode: false
@@ -22,7 +20,7 @@ DebugMode: false
 ColorConsole: true
 
 Worlds:
-  Number: 5
+  DefaultNumber: 2
   Increase: 2
   Title: "CTS-"
   Copy: "world"
