@@ -4,6 +4,7 @@ public enum Files {
     Config("config"),
     Kits("kits"),
     Lang("lang"),
+    Temp("temp"),
     Spawn("spawn"),
     Sheep("sheep"),
     Zone("zone");
