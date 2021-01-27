@@ -5,6 +5,7 @@ import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Settings;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.PlayersManager;
+import fr.skyfighttv.cts.Utils.TempManager;
 import fr.skyfighttv.cts.Utils.WorldManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 public class CTS implements CommandExecutor {
     public static boolean verifSetup(Player player) {
-        if (!Settings.getInstance().isSetup()) {
+        if (!TempManager.isSetup()) {
             if (!player.hasPermission("CTS.setup")) {
                 player.sendMessage(Language.getInstance().getNoPermission());
                 return true;
@@ -140,7 +141,7 @@ public class CTS implements CommandExecutor {
     }
 
     private void notFullCommand(Player player) {
-        if (!Settings.getInstance().isSetup()) {
+        if (!TempManager.isSetup()) {
             if (!player.hasPermission("CTS.setup")) {
                 player.sendMessage(Language.getInstance().getNoPermission());
                 return;

@@ -4,6 +4,7 @@ import com.google.common.base.Functions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import fr.skyfighttv.cts.Settings;
+import fr.skyfighttv.cts.Utils.TempManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -70,7 +71,7 @@ public class CTSTab implements TabCompleter {
     }
 
     private List<String> setupTab(String[] args, List<String> tab) {
-        if (Settings.getInstance().isSetup()) {
+        if (TempManager.isSetup()) {
             tab.addAll(Arrays.asList("Stats", "Leave"));
 
             if (Settings.getInstance().isCTSPlay())

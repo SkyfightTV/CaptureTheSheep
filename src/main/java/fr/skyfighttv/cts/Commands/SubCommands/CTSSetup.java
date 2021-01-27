@@ -4,6 +4,7 @@ import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Settings;
 import fr.skyfighttv.cts.Utils.FileManager;
 import fr.skyfighttv.cts.Utils.Files;
+import fr.skyfighttv.cts.Utils.TempManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -13,13 +14,12 @@ public class CTSSetup {
     private static final String undoneColor = "§c";
 
     public static void init(Player player) {
-        YamlConfiguration config = FileManager.getValues().get(Files.Config);
         YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
         YamlConfiguration sheepConfig = FileManager.getValues().get(Files.Sheep);
         YamlConfiguration kitsConfig = FileManager.getValues().get(Files.Kits);
         YamlConfiguration zoneConfig = FileManager.getValues().get(Files.Zone);
 
-        if (!Settings.getInstance().isSetup()) {
+        if (!TempManager.isSetup()) {
             StringBuilder message = new StringBuilder();
 
             String spawnLobby = booleanToColor(spawnConfig.contains("lobby"));
@@ -51,9 +51,8 @@ public class CTSSetup {
                 message.append("§aPlugin initialization completed.")
                         .append("\n");
 
-                System.out.println(Settings.getInstance().isSetup());
-                config.set("IsSetup", true);
-                FileManager.save(Files.Config);
+                TempManager.getConfiguration().set("isSetup", true);
+                TempManager.save();
 
                 Bukkit.getPluginManager().disablePlugin(Main.getInstance());
                 Bukkit.getPluginManager().enablePlugin(Main.getInstance());
