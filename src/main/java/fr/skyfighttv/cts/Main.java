@@ -76,7 +76,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (Settings.getInstance().isSetup())
+        if (TempManager.isSetup())
             SheepManager.removeAll();
     }
 
@@ -115,7 +115,7 @@ public class Main extends JavaPlugin {
         System.out.println(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
         new PlayersManager();
 
-        if (Settings.getInstance().isSetup()) {
+        if (TempManager.isSetup()) {
             System.out.println(ANSI_CYAN + "Loading worlds in progress ..." + ANSI_RESET);
             new WorldManager();
 
