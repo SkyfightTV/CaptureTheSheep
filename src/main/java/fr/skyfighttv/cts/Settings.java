@@ -8,17 +8,11 @@ import java.util.List;
 public class Settings {
     private static Settings Instance;
 
-    @Config(path = "IsSetup")
-    private boolean IsSetup = true;
-
     @Config(path = "DebugMode")
     private boolean DebugMode = false;
 
     @Config(path = "ColorConsole")
     private boolean ColorConsole = true;
-
-    @Config(path = "Worlds.Number")
-    private int WorldsNumber = 2;
 
     @Config(path = "Worlds.Increase")
     private int WorldsIncrease = 2;
@@ -79,20 +73,12 @@ public class Settings {
         return Instance;
     }
 
-    public boolean isSetup() {
-        return IsSetup;
-    }
-
     public boolean isDebugMode() {
         return DebugMode;
     }
 
     public boolean isColorConsole() {
         return ColorConsole;
-    }
-
-    public int getWorldsNumber() {
-        return WorldsNumber;
     }
 
     public int getWorldsIncrease() {
