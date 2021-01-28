@@ -47,6 +47,8 @@ public class GameManager {
         List<World> worldList = new ArrayList<>(numberPlayers.keySet());
         Collections.reverse(worldList);
 
+        worldList.removeIf(Objects::isNull);
+
         for (World world : worldList) {
             if (numberPlayers.get(world).size() < Settings.getInstance().getGameMaxPlayers()
                     && !games.contains(world)) {
