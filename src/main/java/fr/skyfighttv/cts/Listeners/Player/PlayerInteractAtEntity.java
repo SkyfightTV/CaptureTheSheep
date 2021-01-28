@@ -5,11 +5,12 @@ import fr.skyfighttv.cts.Utils.SheepManager;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 public class PlayerInteractAtEntity implements Listener {
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     private void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
         if (event.getRightClicked() instanceof Sheep
                 && GameManager.getInGamePlayers().contains(event.getPlayer())
