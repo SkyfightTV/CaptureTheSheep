@@ -44,12 +44,14 @@ public class GameManager {
     }
 
     public static boolean joinGame(Player player) {
-        List<World> worldList = new ArrayList<>(numberPlayers.keySet());
+        List<World> worldList = WorldManager.getWorlds();
         Collections.reverse(worldList);
 
-        worldList.removeIf(Objects::isNull);
+        System.out.println(worldList);
 
         for (World world : worldList) {
+            if (world == null) continue;
+
             if (numberPlayers.get(world).size() < Settings.getInstance().getGameMaxPlayers()
                     && !games.contains(world)) {
                 YamlConfiguration spawnConfig = FileManager.getValues().get(Files.Spawn);
