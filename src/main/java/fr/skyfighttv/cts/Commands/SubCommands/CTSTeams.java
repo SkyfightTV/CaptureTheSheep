@@ -1,8 +1,8 @@
 package fr.skyfighttv.cts.Commands.SubCommands;
 
-import fr.ChadOW.cinventory.cinventory.CInventory;
-import fr.ChadOW.cinventory.citem.CItem;
-import fr.ChadOW.cinventory.citem.ItemCreator;
+import fr.ChadOW.cinventory.CInventory;
+import fr.ChadOW.cinventory.CItem;
+import fr.ChadOW.cinventory.ItemCreator;
 import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Settings;
 import fr.skyfighttv.cts.Utils.FileManager;

@@ -17,6 +17,6 @@ public class CTSStats {
         }
 
         String messageSend = message.toString();
-        player.sendMessage(messageSend.replace("\n", ""));
+        player.sendMessage(messageSend);
     }
 }
