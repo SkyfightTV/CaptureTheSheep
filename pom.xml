@@ -102,7 +102,7 @@
         <dependency>
             <groupId>Plugin</groupId>
             <artifactId>CInventory</artifactId>
-            <version>1.16.4</version>
+            <version>2.2-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
