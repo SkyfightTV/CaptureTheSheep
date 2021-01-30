@@ -1,7 +1,7 @@
 package fr.skyfighttv.cts;
 
 import fr.ChadOW.cinventory.CUtils;
-import fr.ChadOW.cinventory.citem.ItemCreator;
+import fr.ChadOW.cinventory.ItemCreator;
 import fr.skyfighttv.cts.Commands.CTS;
 import fr.skyfighttv.cts.Commands.CTSTab;
 import fr.skyfighttv.cts.Listeners.Block.BlockBreak;
@@ -32,7 +32,6 @@ import java.util.List;
  * @since 0.1
  */
 public class Main extends JavaPlugin {
-
     public static String ANSI_RESET = "";
     public static String ANSI_BLACK = "";
     public static String ANSI_RED = "";
