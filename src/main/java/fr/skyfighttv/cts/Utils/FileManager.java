@@ -47,9 +47,9 @@ public class FileManager {
     }
 
     public static void save(Files files) {
-        File file = new File(Main.getInstance().getDataFolder() + "/" + files.name() + ".yml");
+        File file = new File(Main.getInstance().getDataFolder() + "/" + files.getName() + ".yml");
         if (!file.exists()) {
-            System.out.println("ERROR : File " + files.name() + " not found !");
+            System.out.println("ERROR : File " + files.getName() + " not found !");
             return;
         }
         try {
