@@ -86,6 +86,9 @@ public class Language {
     @Config(path = "TeamsName.Blue", color = true)
     private String TeamsNameBlue = "Bleu";
 
+    @Config(path = "WaitActionBar", color = true)
+    private String WaitActionBar = "%currentplayers% / %maxplayers%";
+
     @Config(path = "StatsMessage", color = true)
     private List<String> StatsMessage = Arrays.asList(
             "---------------------",
@@ -211,6 +214,10 @@ public class Language {
 
     public String getTeamsNameBlue() {
         return TeamsNameBlue;
+    }
+
+    public String getWaitActionBar() {
+        return WaitActionBar;
     }
 
     public List<String> getStatsMessage() {
