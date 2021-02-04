@@ -2,10 +2,7 @@ package fr.skyfighttv.cts.commands.subcommands;
 
 import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Main;
-import fr.skyfighttv.cts.utils.FileManager;
-import fr.skyfighttv.cts.utils.Files;
-import fr.skyfighttv.cts.utils.GameManager;
-import fr.skyfighttv.cts.utils.WorldManager;
+import fr.skyfighttv.cts.utils.*;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -30,6 +27,7 @@ public class CTSLeave {
         numberPlayersGame.remove(player);
         GameManager.getNumberPlayers().put(world, numberPlayersGame);
 
+        ScoreBoardManager.remove(player);
         Main.setLobbyInventory(player);
         GameManager.getInGamePlayers().remove(player);
 
