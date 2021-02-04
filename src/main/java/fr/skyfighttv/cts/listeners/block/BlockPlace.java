@@ -26,9 +26,9 @@ public class BlockPlace implements Listener {
 
                     event.getItemInHand().setAmount(64);
 
-                    Bukkit.getScheduler().runTaskLater(Main.getInstance(), () -> {
-                        event.getBlockPlaced().setType(Material.AIR);
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
                         blocksPlaced.remove(event.getBlockPlaced());
+                        event.getBlockPlaced().setType(Material.AIR);
                     }, (Settings.getInstance().getAutoDeleteTime() * 20L));
                     return;
                 }
