@@ -58,6 +58,8 @@ Game:
   TeamSizeZone: 5
   EndGameTime: 10
   WaitTime: 30
+  ScoreBoard:
+    Update: 1
 
 GUI:
   Kits:

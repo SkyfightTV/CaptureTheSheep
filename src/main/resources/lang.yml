@@ -68,3 +68,13 @@ StatsMessage:
   - "Kills : %kill%"
   - "Ratio : %ratio%"
   - "---------------------"
+
+#Variables:
+#%death% = return the number of deaths of the player
+#%kill% = return the number of kill by the player
+#%ratio% = return the player's ration
+ScoreBoard:
+  Title: "SkyBoard"
+  Lines:
+    - "--------------"
+    - "Kills: %kill%"

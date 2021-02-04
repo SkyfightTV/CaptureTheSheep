@@ -94,7 +94,16 @@ public class Language {
             "Ratio : %ratio%",
             "---------------------");
 
+    @Config(path = "ScoreBoard.Title", color = true)
+    private String ScoreBoardTitle = "Title";
 
+    @Config(path = "ScoreBoard.Lines", color = true)
+    private List<String> ScoreBoardLines = Arrays.asList(
+            "---------------------",
+            "Morts : %death%",
+            "Kills : %kill%",
+            "Ratio : %ratio%",
+            "---------------------");
 
     public Language() {
         Instance = this;
@@ -206,6 +215,14 @@ public class Language {
 
     public List<String> getStatsMessage() {
         return StatsMessage;
+    }
+
+    public String getScoreBoardTitle() {
+        return ScoreBoardTitle;
+    }
+
+    public List<String> getScoreBoardLines() {
+        return ScoreBoardLines;
     }
 
     public static Language getInstance() {

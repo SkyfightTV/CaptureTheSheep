@@ -65,6 +65,9 @@ public class Settings {
     @Config(path = "AutoDelete.Time")
     private int AutoDeleteTime = 10;
 
+    @Config(path = "Game.ScoreBoard.Update")
+    private int GameScoreBoardUpdate = 2;
+
     public Settings() {
         Instance = this;
     }
@@ -147,5 +150,9 @@ public class Settings {
 
     public int getAutoDeleteTime() {
         return AutoDeleteTime;
+    }
+
+    public int getGameScoreBoardUpdate() {
+        return GameScoreBoardUpdate;
     }
 }
