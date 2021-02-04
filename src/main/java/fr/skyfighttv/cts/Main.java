@@ -2,16 +2,16 @@ package fr.skyfighttv.cts;
 
 import fr.ChadOW.cinventory.CUtils;
 import fr.ChadOW.cinventory.ItemCreator;
-import fr.skyfighttv.cts.Commands.CTS;
-import fr.skyfighttv.cts.Commands.CTSTab;
-import fr.skyfighttv.cts.Listeners.Block.BlockBreak;
-import fr.skyfighttv.cts.Listeners.Block.BlockPlace;
-import fr.skyfighttv.cts.Listeners.Entity.EntityDamage;
-import fr.skyfighttv.cts.Listeners.Entity.EntityExplode;
-import fr.skyfighttv.cts.Listeners.Entity.EntitySpawn;
-import fr.skyfighttv.cts.Listeners.Food.FoodLevelChange;
-import fr.skyfighttv.cts.Listeners.Player.*;
-import fr.skyfighttv.cts.Utils.*;
+import fr.skyfighttv.cts.commands.CTS;
+import fr.skyfighttv.cts.commands.CTSTab;
+import fr.skyfighttv.cts.listeners.block.BlockBreak;
+import fr.skyfighttv.cts.listeners.block.BlockPlace;
+import fr.skyfighttv.cts.listeners.entity.EntityDamage;
+import fr.skyfighttv.cts.listeners.entity.EntityExplode;
+import fr.skyfighttv.cts.listeners.entity.EntitySpawn;
+import fr.skyfighttv.cts.listeners.food.FoodLevelChange;
+import fr.skyfighttv.cts.listeners.player.*;
+import fr.skyfighttv.cts.utils.*;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -106,20 +106,20 @@ public class Main extends JavaPlugin {
 
         System.out.println(ANSI_CYAN + "Loading configuration files in progress ..." + ANSI_RESET);
         try {
-            new FileManager();
+            new FileManager(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         System.out.println(ANSI_CYAN + "Loading current player data in progress ..." + ANSI_RESET);
-        new PlayersManager();
+        new PlayersManager(false);
 
         if (TempManager.isSetup()) {
             System.out.println(ANSI_CYAN + "Loading worlds in progress ..." + ANSI_RESET);
-            new WorldManager();
+            new WorldManager(false);
 
             System.out.println(ANSI_CYAN + "Loading games in progress ..." + ANSI_RESET);
-            new GameManager();
+            new GameManager(false);
 
             System.out.println(ANSI_CYAN + "Finalization of the loading of the plugin in progress ..." + ANSI_RESET);
 
