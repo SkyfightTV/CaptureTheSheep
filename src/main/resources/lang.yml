@@ -54,6 +54,10 @@ TeamsName:
   Red: "Rouge"
   Blue: "Bleu"
 
+#Variables:
+#%currentplayers% = return the number of waiting player
+#%maxplayers% = return the number of max player can be join the game
+WaitActionBar: "%currentplayers% / %maxplayers%"
 WaitTitle:
   10: "Démarrage dans 10 secondes !"
 
