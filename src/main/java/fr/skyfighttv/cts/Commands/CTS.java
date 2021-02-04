@@ -3,10 +3,7 @@ package fr.skyfighttv.cts.Commands;
 import fr.skyfighttv.cts.Commands.SubCommands.*;
 import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Settings;
-import fr.skyfighttv.cts.Utils.FileManager;
-import fr.skyfighttv.cts.Utils.PlayersManager;
-import fr.skyfighttv.cts.Utils.TempManager;
-import fr.skyfighttv.cts.Utils.WorldManager;
+import fr.skyfighttv.cts.Utils.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -124,6 +121,7 @@ public class CTS implements CommandExecutor {
                         e.printStackTrace();
                     }
                     WorldManager.reload();
+                    GameManager.load();
 
                     player.sendMessage(Language.getInstance().getSuccessReload());
                     break;
@@ -131,6 +129,11 @@ public class CTS implements CommandExecutor {
                     if (verifSetup(player)) return false;
 
                     CTSStats.init(player);
+                    break;
+                case "teams":
+                    if (verifSetup(player)) return false;
+
+                    CTSTeams.init(player);
                     break;
                 default:
                     notFullCommand(player);
