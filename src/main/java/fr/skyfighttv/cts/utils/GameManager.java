@@ -6,11 +6,14 @@ import fr.skyfighttv.cts.commands.subcommands.CTSSetSpawn;
 import fr.skyfighttv.cts.Language;
 import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Settings;
+import fr.skyfighttv.cts.listeners.block.BlockPlace;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -42,6 +45,8 @@ public class GameManager {
         games = new HashSet<>();
 
         load();
+
+        new ScoreBoardManager();
 
         if (!silent)
             System.out.println(Main.ANSI_GREEN + "All games are initialize." + Main.ANSI_RESET);
@@ -100,8 +105,9 @@ public class GameManager {
                         return;
                     }
 
-                    String message = numberPlayers.get(world).size() + " / " + Settings.getInstance().getGameMaxPlayers();
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(Language.getInstance().getWaitActionBar()
+                            .replaceAll("%currentplayers%", String.valueOf(numberPlayers.get(world).size()))
+                            .replaceAll("%maxplayers%", String.valueOf(Settings.getInstance().getGameMaxPlayers()))));
                 }, 0, 2));
 
                 if (numberPlayers.get(world).size()
@@ -154,6 +160,8 @@ public class GameManager {
                 redTeam.putIfAbsent(world, new HashSet<>());
 
                 for (Player player : numberPlayers.get(world)) {
+                    ScoreBoardManager.create(player);
+
                     if (!blueTeam.get(world).contains(player)
                             && !redTeam.get(world).contains(player)) {
                         if (blueTeam.get(world).size() < redTeam.get(world).size()) {
@@ -179,10 +187,22 @@ public class GameManager {
 
     public static void endGame(World world) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
-            for (Player player : numberPlayers.get(world))
+            for (Player player : numberPlayers.get(world)) {
                 CTSLeave.leaveGame(player, world);
+                ScoreBoardManager.remove(player);
+            }
 
             SheepManager.removeWorld(world);
+
+            numberPlayers.put(world, new HashSet<>());
+            games.remove(world);
+
+            for (Block placedBlock : BlockPlace.blocksPlaced) {
+                if (placedBlock.getWorld().equals(world)) {
+                    BlockPlace.blocksPlaced.remove(placedBlock);
+                    placedBlock.setType(Material.AIR);
+                }
+            }
         }, Settings.getInstance().getGameEndGameTime());
     }
 
