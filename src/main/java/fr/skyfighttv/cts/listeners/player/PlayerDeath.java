@@ -4,6 +4,7 @@ import fr.skyfighttv.cts.Main;
 import fr.skyfighttv.cts.Settings;
 import fr.skyfighttv.cts.utils.GameManager;
 import fr.skyfighttv.cts.utils.PlayersManager;
+import fr.skyfighttv.cts.utils.ScoreBoardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,6 +30,7 @@ public class PlayerDeath implements Listener {
             GameManager.teleportPlayerTeam(event.getEntity().getWorld(), player);
             GameManager.givePlayerKit(player);
 
+            ScoreBoardManager.forceUpdate(player);
             GameManager.getInvinciblePlayers().add(player);
 
             Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> GameManager.getInvinciblePlayers().remove(player), (Settings.getInstance().getGameInvincibility() * 20L));
