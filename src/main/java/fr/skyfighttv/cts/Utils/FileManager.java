@@ -42,8 +42,8 @@ public class FileManager {
     }
 
     public static void loadClass() {
-        ConfigAnnotation.loadClass(values.get(Files.Config), Settings.class);
-        ConfigAnnotation.loadClass(values.get(Files.Lang), Language.class);
+        ConfigAnnotation.loadClass(values.get(Files.Config), Settings.getInstance());
+        ConfigAnnotation.loadClass(values.get(Files.Lang), Language.getInstance());
     }
 
     public static void save(Files files) {

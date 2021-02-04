@@ -20,6 +20,10 @@ public class WorldManager {
         reload();
 
         worlds.removeIf(Objects::isNull);
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
+            if (worlds.isEmpty()) GameManager.load();
+        }, 20);
     }
 
     public static void reload() {
@@ -27,22 +31,18 @@ public class WorldManager {
         int number = 0;
         for (int i = 1; i <= TempManager.getWorldsNumber(); i++) {
             String worldName = Settings.getInstance().getWorldsTitle() + i;
-            File world = new File(worldName);
 
-            if (!world.exists()) {
-                WorldCreator worldCreator = new WorldCreator(worldName);
+            WorldCreator worldCreator = new WorldCreator(worldName);
 
-                try {
-                    worldCreator.copy(Objects.requireNonNull(Bukkit.getWorld(Settings.getInstance().getWorldsCopy())));
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                }
-
-                worlds.add(worldCreator.createWorld());
-                createdNumber++;
-            } else {
-                worlds.add(Bukkit.getWorld(worldName));
+            try {
+                worldCreator.copy(Objects.requireNonNull(Bukkit.getWorld(Settings.getInstance().getWorldsCopy())));
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
+
+            worlds.add(worldCreator.createWorld());
+            createdNumber++;
+
             number++;
         }
         System.out.println(Main.ANSI_GREEN + createdNumber + " worlds created and " + number + " worlds loaded." + Main.ANSI_RESET);

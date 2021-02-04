@@ -36,7 +36,6 @@ public class SheepManager {
             sheep.setCollidable(false);
             sheep.setInvulnerable(true);
             sheep.setSheared(false);
-            sheep.setGravity(true);
             sheep.setBreed(false);
             sheep.setColor(DyeColor.valueOf(sheepTeam.toUpperCase()));
 

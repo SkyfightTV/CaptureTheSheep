@@ -39,6 +39,13 @@ public class GameManager {
         blueTeam = new HashMap<>();
         games = new HashSet<>();
 
+        load();
+    }
+
+    public static void load() {
+        WorldManager.reload();
+        numberPlayers.clear();
+
         for (World world : WorldManager.getWorlds())
             numberPlayers.put(world, new HashSet<>());
     }
@@ -47,7 +54,9 @@ public class GameManager {
         List<World> worldList = WorldManager.getWorlds();
         Collections.reverse(worldList);
 
-        System.out.println(worldList);
+        if (worldList.isEmpty()) load();
+
+        worldList.removeIf(Objects::isNull);
 
         for (World world : worldList) {
             if (world == null) continue;
@@ -79,13 +88,16 @@ public class GameManager {
 
                 actionBadId.put(player, Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), () -> {
                     if (games.contains(world)
-                            || !world.equals(player.getWorld())) {
+                            || !world.equals(player.getWorld())
+                            || !player.isOnline()
+                            || !numberPlayers.containsKey(world)) {
                         Bukkit.getScheduler().cancelTask(actionBadId.get(player));
                         actionBadId.remove(player);
                         return;
                     }
 
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(numberPlayers.get(world).size() + " / " + Settings.getInstance().getGameMaxPlayers()));
+                    String message = numberPlayers.get(world).size() + " / " + Settings.getInstance().getGameMaxPlayers();
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
                 }, 0, 2));
 
                 if (numberPlayers.get(world).size()
@@ -165,6 +177,8 @@ public class GameManager {
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
             for (Player player : numberPlayers.get(world))
                 CTSLeave.leaveGame(player, world);
+
+            SheepManager.removeWorld(world);
         }, Settings.getInstance().getGameEndGameTime());
     }
 
